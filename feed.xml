@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fr"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="fr" /><updated>2024-09-19T08:35:00+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mafilus Diaries</title><subtitle>Journeaux de Mafilus. Orienté CyberSec.
+</subtitle><author><name>Mafilus Network</name><email>&lt;mafilus@localhost.localdomain&gt;</email></author><entry><title type="html">Pseudo Terminal Master / Pseudo Terminal Slave</title><link href="http://localhost:4000/diaries/2024-09-19-taptounon/" rel="alternate" type="text/html" title="Pseudo Terminal Master / Pseudo Terminal Slave" /><published>2024-09-19T00:00:00+02:00</published><updated>2024-09-19T08:17:33+02:00</updated><id>http://localhost:4000/diaries/taptounon</id><content type="html" xml:base="http://localhost:4000/diaries/2024-09-19-taptounon/"><![CDATA[<p>Les premiers développements de <strong>programme C</strong> utilisent souvent des structures de données capables de lire le clavier dans une console et d’écrire dans une console. Ses structures sont aux nombres de trois : <em>stdin, stdout, stderr</em>. Ses structures représentent les fameuses <strong>entrées/sorties</strong> des programmes. Dans mes études, j’ai appris à manipuler ses structures pour comprendre le fonctionnement et maitriser les arcanes des entrées et sorties des programmes <strong>consoles</strong>. Le sujet va couvrir essentiellement <strong>Linux</strong>.</p>
+
+<h2 id="du-standard-c-à-la-vérité-du-noyau-linux">Du standard C à la vérité du noyau Linux</h2>
+
+<p>Le standard C utilise des structures définies en tant que pointeur FILE pour ses entrées et sorties. Ainsi, toutes les fonctions en relation avec des fichiers sont compatibles avec les entrées/sorties. Il est dit que le comportement attendu de l’entrée est qu’elle est en lecture et que par conséquent, si on souhaite lire le contenu du clavier, il faut utiliser une fonction de lecture. Inversement, les sorties devront être écrites pour afficher du texte. Il n’y a qu’une seule entrée standard, je mettrais toujours au singulier le mot entrée quand je parle d’une seule entrée pour un unique processus.</p>
+
+<p>Sauf que sur Linux, ses trois fichiers sont un seul et unique même fichier. Alors, ce n’est pas toujours le cas, notamment, si vous utilisez un interpréteur de commande comme le programme <strong>bash</strong>, celui-ci peut rediriger les flux d’entrée et sorties. Mais avant de se lancer dans cette explication. Je dois vous dire comment on exécute un programme sous la norme <strong>POSIX</strong>.</p>
+
+<h3 id="le-lancement-dun-programme">Le lancement d’un programme</h3>
+<p>Un programme se lance toujours à partir d’un autre programme. S’il exécute directement un programme, son espace mémoire est remplacé. Celui-ci s’arrête pour être un nouveau programme, la configuration de l’environnement, son numéro d’identifiant et de ses fichiers ouverts ne changent pas. Ainsi, un programme comme Bash utilise une autre fonction qui lui permet de se dédoubler (fork). Fork est comme la division cellulaire, c’est un autre processus avec les mêmes caractéristiques excepté certains paramètres comme son identifiant. Ainsi, pour exécuter un programme, les interpréteurs de commande se dupliquent puis se configurent et enfin exécutent le programme.</p>
+
+<h3 id="les-fichiers-sous-linux">Les fichiers sous Linux</h3>
+<p>Linux et d’autres systèmes d’exploitation utilisent ce que l’on nomme des descripteurs de fichier pour donner aux processus la possibilité d’interaction avec des fichiers. Ce sont des nombres, des numéros. Par convention, les numéros 0, 1 et 2 sont l’entrée et les sorties des programmes. Le numéro 0 pour l’entrée, 1 et 2 pour les sorties normales et d’erreur. Ainsi en C, la structure FILE* nommée <strong>stdin</strong> pour lire le clavier est lié au descripteur de fichier <strong>0</strong>. Idem pour stdout qui est lié au numéro 1 et à stderr qui lui est lié au numéro 2. Si un processus essaie d’ouvrir un fichier, alors c’est normalement le numéro le plus bas qui lui sera fourni. Typiquement, si je lance le programme de lecture de fichier “cat” avec en paramètre “/etc/passwd”, voici ce qui se passe : “cat” va demander une ouverture de fichier “/etc/passwd” par le kernel Linux. Le kernel fournit toutes ses opérations et choisis un numéro. Il regarde la liste des numéros disponible et lui fournit le 3, car le 0, 1 et 2 ne sont pas disponibles. Le programme, “cat” va utiliser les opérations de lecture avec le numéro 3.</p>
+
+<p>Sachez que l’on peut manipuler ses numéros de descripteur de fichier. C’est grâce à la fermeture d’un descripteur de fichier que le kernel désalloue le numéro du descripteur de fichier. Et oui ! Fermer un fichier ne signifie pas que celui-ci n’est plus utilisé ! C’est quand tous les numéros de descripteur de fichier lié à un fichier ne sont plus alloués que le fichier est bien fermé ! Une autre fonction permet de dupliquer un descripteur de fichier et de lui mettre un numéro de descripteur de fichier voulu ! C’est la fonction dup2. Si vous avez tout compris, un programme peut choisir son numéro de descripteur de fichier.</p>
+
+<p>Bash utilise cette méthode pour changer les entrées sorties d’un programme. Le programme bash se duplique avec fork et peut choisir de changer les descripteurs de fichier 0,1 et 2 pour que le programme écrive ou reçoive des données depuis une autre source que la console. Ses autres sources peuvent avoir n’importe quelle nature du moment que l’on trouve un descripteur de fichier : une socket réseau, un emplacement de mémoire vive, un fichier, l’entrée et la sortie d’un programme, un tube, etc.</p>
+
+<h2 id="les-vrais-stdin-stdout-et-stderr">Les vrais STDIN, STDOUT et STDERR</h2>
+
+<p>Pour obtenir les vrais fichiers des entrée et sorties, on peut lister les descripteurs de fichier de notre interpréteur de commande :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-l</span> /proc/<span class="nv">$$</span>/fd/
+lrwx------ 1 mafilus mafilus 64 sept. 19 06:23 0 -&gt; /dev/pts/6
+lrwx------ 1 mafilus mafilus 64 sept. 19 06:23 1 -&gt; /dev/pts/6
+lrwx------ 1 mafilus mafilus 64 sept. 19 06:23 2 -&gt; /dev/pts/6
+</code></pre></div></div>
+
+<p>On voit des liens vers /dev/pts/6 pour notre entrée et nos sorties.
+Quel est ce fichier <strong>/dev/pts/6</strong> ?</p>
+
+<h3 id="pseudo-terminal">Pseudo Terminal</h3>
+
+<p>Ce “pts” signifie “Pseudo Terminal Slave”. Il s’agit d’un fichier simulé par le kernel Linux. Il n’existe pas sur le disque dur ! Il a la particularité d’être un terminal. El famoso console :</p>
+
+<p><img src="/assets/img/blog/console.png" alt="800x400" title="CONSOLE... VOYELLE..." /></p>
+
+<p>Ouais, tout ce que vous voyez, c’est ce fichier qui simule les caractéristiques d’un terminal. Par contre, il ne s’occupe pas de l’affichage. C’est à l’émulateur de terminal de tout vous afficher.</p>
+
+<h3 id="alors-comment-que-le-bidule-sutilise-">Alors comment que le bidule s’utilise ?</h3>
+
+<p>C’est très simple. Un processus ouvre <strong>/dev/ptmx</strong> avec la fonction <strong>open</strong> (ça veut dire ouvrir). Puis c’est bon, il a le terminal maître. Il va faire quelques modifications pour qu’ils soient accessibles. Enfin, le processus appelle ptsname pour obtenir le nom du fichier du terminal esclave et l’ouvre. Il y a deux descripteurs de fichier liés à une console !</p>
+
+<p>Deux descripteurs de fichier sont nécessaires pour les pseudos terminaux. Voici un schéma naïf qui représente les composants des pseudos terminaux :</p>
+
+<p><img src="/assets/img/blog/pts.png" alt="800x400" title="The terminal is a lie" /></p>
+
+<p>Pourquoi naïf ? Car dans les faits, un pseudo terminal n’est pas attaché au clavier et à l’écran directement. Non ! Il est rattaché à un processus ! N’oubliez pas que les pseudo terminaux doivent toujours être ouverts par le fichier ptmx !
+Voici un exemple plus proche de la vérité :</p>
+
+<p><img src="/assets/img/blog/vrai-pts.png" alt="800x400" title="J'aurais voulu ne jamais le savoir" /></p>
+
+<p>Le processus xterm est un émulateur de terminal. Il utilise donc les pseudos terminaux… Les serveurs SSH utilisent aussi les pseudos terminaux. Ils jouent un role de multiplexeur entre la partie réseau et terminal.</p>
+
+<h3 id="mais-pourquoi-un-maître-et-un-esclave-">Mais pourquoi un maître et un esclave ?</h3>
+
+<p>Le rôle de l’esclave est d’être attaché à un pseudo terminal qui quand on écrit dedans simule une sortie sur la console. En lecture, il attend le clavier. Le rôle du maître est de simuler l’entrée du clavier en écrivant dessus et de lire le contenu du terminal pour lire sa sortie. Le maître est l’opposé de l’esclave.</p>
+
+<h3 id="dautres-fonctions-des-pts">D’autres fonctions des pts</h3>
+
+<p>Les pseudos terminaux peuvent avoir des modes de fonctionnement différent pour simuler des comportements différents. Il existe des modes comme le mode RAW, qui permet au terminal de ne plus avoir de comportement spécial comme le fait de fournir un retour lors d’une touche frappé au clavier. Les pseudos terminaux servent aussi d’interface pour gérer les colonnes et les lignes.</p>
+
+<h2 id="petite-conclu-là-des-">Petite conclu là, des !</h2>
+
+<p>On a vu le fonctionnement des PTS et c’est déjà pas mal ! Il existe pas mal de petites configurations des terminaux. Par exemple, on peut s’en servir pour lire des ports séries. Je n’ai pas abordé le mode canonique. Donc la seule lecture de ma page ne vous fournira pas toutes les informations nécessaires sur les terminaux. N’empêche que pour trouver des informations à ce sujet, il faut savoir chercher et expérimenter. Je vous laisse avec ce bout de code pour faire joue-joue avec les pts !</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _XOPEN_SOURCE 600
+#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">fdm</span><span class="p">,</span> <span class="n">fds</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">pts_name</span><span class="p">;</span>
+
+    <span class="n">fdm</span> <span class="o">=</span> <span class="n">posix_openpt</span><span class="p">(</span><span class="n">O_RDWR</span><span class="p">);</span> <span class="c1">// ouvre le /dev/ptmx</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fdm</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"Erreur ouverture maître PTY"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">grantpt</span><span class="p">(</span><span class="n">fdm</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"Erreur grantpt"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">unlockpt</span><span class="p">(</span><span class="n">fdm</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"Erreur unlockpt"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">pts_name</span> <span class="o">=</span> <span class="n">ptsname</span><span class="p">(</span><span class="n">fdm</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pts_name</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"Erreur ptsname"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"PTY esclave : %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">pts_name</span><span class="p">);</span>
+
+    <span class="n">fds</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">pts_name</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fds</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"Erreur ouverture esclave PTY"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Pseudo-terminal alloué avec succès</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="c1">// ici vous pouvez fork exec</span>
+	<span class="c1">// dans le nouveau processus fermer 0,1,2 avec close(0);close(1);close(2)</span>
+	<span class="c1">// faite dup2(fds,0); dup2(fds,1);dup2(fds,2);</span>
+	<span class="c1">// puis exec</span>
+	<span class="c1">// dans le processus parent. Vous pouvez envoyer des données avec write pour controler le nouveau processus</span>
+	<span class="c1">// ceci fonctionne même avec des programmes qui alloue du curses comme vim</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fdm</span><span class="p">);</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fds</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Des bisous !</p>]]></content><author><name>Mafilus Network</name><email>&lt;mafilus@localhost.localdomain&gt;</email></author><category term="diaries" /><summary type="html"><![CDATA[Tu as pt ou tu n'as pas pt.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/blog/pts.png" /><media:content medium="image" url="http://localhost:4000/assets/img/blog/pts.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

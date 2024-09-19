@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="fr"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v9.2.1 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+  <meta name="robots" content="noindex">
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Pseudo Terminal Master / Pseudo Terminal Slave | Mafilus Diaries</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Pseudo Terminal Master / Pseudo Terminal Slave" />
+<meta name="author" content="Mafilus Network" />
+<meta property="og:locale" content="fr" />
+<meta name="description" content="Tu as pt ou tu n’as pas pt." />
+<meta property="og:description" content="Tu as pt ou tu n’as pas pt." />
+<link rel="canonical" href="http://localhost:4000/diaries/2024-09-19-taptounon/" />
+<meta property="og:url" content="http://localhost:4000/diaries/2024-09-19-taptounon/" />
+<meta property="og:site_name" content="Mafilus Diaries" />
+<meta property="og:image" content="http://localhost:4000/assets/img/blog/pts.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-09-19T00:00:00+02:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/blog/pts.png" />
+<meta property="twitter:title" content="Pseudo Terminal Master / Pseudo Terminal Slave" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-19T08:17:33+02:00","datePublished":"2024-09-19T00:00:00+02:00","description":"Tu as pt ou tu n’as pas pt.","headline":"Pseudo Terminal Master / Pseudo Terminal Slave","image":"http://localhost:4000/assets/img/blog/pts.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/diaries/2024-09-19-taptounon/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Mafilus Network"},"url":"http://localhost:4000/diaries/2024-09-19-taptounon/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="cybersec">
+  
+
+
+
+  <meta name="color-scheme" content="dark light">
+
+
+
+  <meta name="theme-color" content="rgb(25,55,71)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mafilus Diaries">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Mafilus Diaries">
+
+<meta name="generator" content="Hydejack v9.2.1" />
+
+
+<link rel="alternate" href="http://localhost:4000/diaries/2024-09-19-taptounon/" hreflang="fr">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Mafilus Diaries" />
+
+
+<link rel="shortcut icon"    href="/assets/img/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/img/icons/logo.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+  
+  <link rel="dns-prefetch" href="/assets/bower_components/katex/dist/katex.min.css" id="_katexPreload">
+  <noscript><link rel="stylesheet" href="/assets/bower_components/katex/dist/katex.min.css"></noscript>
+
+
+
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-19T08:35:00+02:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.1.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.5);--accent-color-highlight: rgba(79, 177, 186, 0.1);--accent-color-darkened: rgb(63.8602040816, 154.5602040816, 162.8897959184);--theme-color: rgb(25,55,71);--dark-mode-body-bg: hsl(200.8695652174, 5.9895833333%, 17.5%);--dark-mode-border-color: hsl(200.8695652174, 5.9895833333%, 22.5%)}
+</style>
+
+
+<!--<![endif]-->
+
+
+<!-- Add HTML tags here to be included in the head. You can delete the below: -->
+<link rel="dns-prefetch" href="https://assets.gumroad.com">
+<script type="module">
+  const loadJS = x => new Promise(r => window.loadJS(x).addEventListener('load', r));
+
+  let p1, p2, io1, io2, embedCreated, overlayCreated;
+  document.querySelector('hy-push-state').addEventListener('load', () => {
+    io1 ||= new IntersectionObserver(async (entries) => {
+      if (entries.some(x => x.isIntersecting)) {
+        p1 = p1 || loadJS('https://gumroad.com/js/gumroad-embed.js');
+        await p1;
+        !embedCreated && await new Promise(function check1(res) {
+          if (typeof createGumroadEmbed !== 'undefined')  {
+            embedCreated = 1;
+            res(createGumroadEmbed());
+          }
+          else setTimeout(() => check1(res), 200);
+        });
+        await new Promise(function check2(res) {
+          if (typeof GumroadEmbed !== 'undefined') res(GumroadEmbed.reload());
+          else setTimeout(() => check2(res), 200);
+        });
+      }
+    }, { rootMargin: '1440px' });
+
+    io2 ||= new IntersectionObserver(async (entries) => {
+      if (entries.some(x => x.isIntersecting)) {
+        p2 = p2 || loadJS('https://gumroad.com/js/gumroad.js');
+        await p2;
+        !overlayCreated && await new Promise(function check(res) {
+          if (typeof createGumroadOverlay !== 'undefined') {
+            overlayCreated = 1;
+            res(createGumroadOverlay());
+          }
+          else setTimeout(() => check(res), 200);
+        });
+      }
+    }, { rootMargin: '300px' });
+
+    document.querySelectorAll('.gumroad-product-embed').forEach(el => io1.observe(el));
+    document.querySelectorAll('.gumroad-button').forEach(el => io2.observe(el));
+  });
+</script>
+
+
+</head>
+
+<body class="no-break-layout">
+  
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Go Go:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/diaries/">diaries</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2024-09-19-taptounon</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+<article id="post-diaries-taptounon" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Pseudo Terminal Master / Pseudo Terminal Slave
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2024-09-19T00:00:00+02:00">19 Sep 2024</time> in <span>Diaries</span> 
+      </span>
+      
+        
+          
+          
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+
+
+<img
+  
+    src="/assets/img/blog/pts.png"
+  
+  alt="Pseudo Terminal Master / Pseudo Terminal Slave"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      Tu as pt ou tu n’as pas pt.
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>Les premiers développements de <strong>programme C</strong> utilisent souvent des structures de données capables de lire le clavier dans une console et d’écrire dans une console. Ses structures sont aux nombres de trois : <em>stdin, stdout, stderr</em>. Ses structures représentent les fameuses <strong>entrées/sorties</strong> des programmes. Dans mes études, j’ai appris à manipuler ses structures pour comprendre le fonctionnement et maitriser les arcanes des entrées et sorties des programmes <strong>consoles</strong>. Le sujet va couvrir essentiellement <strong>Linux</strong>.</p>
+
+<h2 id="du-standard-c-à-la-vérité-du-noyau-linux">Du standard C à la vérité du noyau Linux</h2>
+
+<p>Le standard C utilise des structures définies en tant que pointeur FILE pour ses entrées et sorties. Ainsi, toutes les fonctions en relation avec des fichiers sont compatibles avec les entrées/sorties. Il est dit que le comportement attendu de l’entrée est qu’elle est en lecture et que par conséquent, si on souhaite lire le contenu du clavier, il faut utiliser une fonction de lecture. Inversement, les sorties devront être écrites pour afficher du texte. Il n’y a qu’une seule entrée standard, je mettrais toujours au singulier le mot entrée quand je parle d’une seule entrée pour un unique processus.</p>
+
+<p>Sauf que sur Linux, ses trois fichiers sont un seul et unique même fichier. Alors, ce n’est pas toujours le cas, notamment, si vous utilisez un interpréteur de commande comme le programme <strong>bash</strong>, celui-ci peut rediriger les flux d’entrée et sorties. Mais avant de se lancer dans cette explication. Je dois vous dire comment on exécute un programme sous la norme <strong>POSIX</strong>.</p>
+
+<h3 id="le-lancement-dun-programme">Le lancement d’un programme</h3>
+<p>Un programme se lance toujours à partir d’un autre programme. S’il exécute directement un programme, son espace mémoire est remplacé. Celui-ci s’arrête pour être un nouveau programme, la configuration de l’environnement, son numéro d’identifiant et de ses fichiers ouverts ne changent pas. Ainsi, un programme comme Bash utilise une autre fonction qui lui permet de se dédoubler (fork). Fork est comme la division cellulaire, c’est un autre processus avec les mêmes caractéristiques excepté certains paramètres comme son identifiant. Ainsi, pour exécuter un programme, les interpréteurs de commande se dupliquent puis se configurent et enfin exécutent le programme.</p>
+
+<h3 id="les-fichiers-sous-linux">Les fichiers sous Linux</h3>
+<p>Linux et d’autres systèmes d’exploitation utilisent ce que l’on nomme des descripteurs de fichier pour donner aux processus la possibilité d’interaction avec des fichiers. Ce sont des nombres, des numéros. Par convention, les numéros 0, 1 et 2 sont l’entrée et les sorties des programmes. Le numéro 0 pour l’entrée, 1 et 2 pour les sorties normales et d’erreur. Ainsi en C, la structure FILE* nommée <strong>stdin</strong> pour lire le clavier est lié au descripteur de fichier <strong>0</strong>. Idem pour stdout qui est lié au numéro 1 et à stderr qui lui est lié au numéro 2. Si un processus essaie d’ouvrir un fichier, alors c’est normalement le numéro le plus bas qui lui sera fourni. Typiquement, si je lance le programme de lecture de fichier “cat” avec en paramètre “/etc/passwd”, voici ce qui se passe : “cat” va demander une ouverture de fichier “/etc/passwd” par le kernel Linux. Le kernel fournit toutes ses opérations et choisis un numéro. Il regarde la liste des numéros disponible et lui fournit le 3, car le 0, 1 et 2 ne sont pas disponibles. Le programme, “cat” va utiliser les opérations de lecture avec le numéro 3.</p>
+
+<p>Sachez que l’on peut manipuler ses numéros de descripteur de fichier. C’est grâce à la fermeture d’un descripteur de fichier que le kernel désalloue le numéro du descripteur de fichier. Et oui ! Fermer un fichier ne signifie pas que celui-ci n’est plus utilisé ! C’est quand tous les numéros de descripteur de fichier lié à un fichier ne sont plus alloués que le fichier est bien fermé ! Une autre fonction permet de dupliquer un descripteur de fichier et de lui mettre un numéro de descripteur de fichier voulu ! C’est la fonction dup2. Si vous avez tout compris, un programme peut choisir son numéro de descripteur de fichier.</p>
+
+<p>Bash utilise cette méthode pour changer les entrées sorties d’un programme. Le programme bash se duplique avec fork et peut choisir de changer les descripteurs de fichier 0,1 et 2 pour que le programme écrive ou reçoive des données depuis une autre source que la console. Ses autres sources peuvent avoir n’importe quelle nature du moment que l’on trouve un descripteur de fichier : une socket réseau, un emplacement de mémoire vive, un fichier, l’entrée et la sortie d’un programme, un tube, etc.</p>
+
+<h2 id="les-vrais-stdin-stdout-et-stderr">Les vrais STDIN, STDOUT et STDERR</h2>
+
+<p>Pour obtenir les vrais fichiers des entrée et sorties, on peut lister les descripteurs de fichier de notre interpréteur de commande :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-l</span> /proc/<span class="nv">$$</span>/fd/
+lrwx------ 1 mafilus mafilus 64 sept. 19 06:23 0 -&gt; /dev/pts/6
+lrwx------ 1 mafilus mafilus 64 sept. 19 06:23 1 -&gt; /dev/pts/6
+lrwx------ 1 mafilus mafilus 64 sept. 19 06:23 2 -&gt; /dev/pts/6
+</code></pre></div></div>
+
+<p>On voit des liens vers /dev/pts/6 pour notre entrée et nos sorties.
+Quel est ce fichier <strong>/dev/pts/6</strong> ?</p>
+
+<h3 id="pseudo-terminal">Pseudo Terminal</h3>
+
+<p>Ce “pts” signifie “Pseudo Terminal Slave”. Il s’agit d’un fichier simulé par le kernel Linux. Il n’existe pas sur le disque dur ! Il a la particularité d’être un terminal. El famoso console :</p>
+
+<p><img src="/assets/img/blog/console.png" alt="800x400" title="CONSOLE... VOYELLE..." /></p>
+
+<p>Ouais, tout ce que vous voyez, c’est ce fichier qui simule les caractéristiques d’un terminal. Par contre, il ne s’occupe pas de l’affichage. C’est à l’émulateur de terminal de tout vous afficher.</p>
+
+<h3 id="alors-comment-que-le-bidule-sutilise-">Alors comment que le bidule s’utilise ?</h3>
+
+<p>C’est très simple. Un processus ouvre <strong>/dev/ptmx</strong> avec la fonction <strong>open</strong> (ça veut dire ouvrir). Puis c’est bon, il a le terminal maître. Il va faire quelques modifications pour qu’ils soient accessibles. Enfin, le processus appelle ptsname pour obtenir le nom du fichier du terminal esclave et l’ouvre. Il y a deux descripteurs de fichier liés à une console !</p>
+
+<p>Deux descripteurs de fichier sont nécessaires pour les pseudos terminaux. Voici un schéma naïf qui représente les composants des pseudos terminaux :</p>
+
+<p><img src="/assets/img/blog/pts.png" alt="800x400" title="The terminal is a lie" /></p>
+
+<p>Pourquoi naïf ? Car dans les faits, un pseudo terminal n’est pas attaché au clavier et à l’écran directement. Non ! Il est rattaché à un processus ! N’oubliez pas que les pseudo terminaux doivent toujours être ouverts par le fichier ptmx !
+Voici un exemple plus proche de la vérité :</p>
+
+<p><img src="/assets/img/blog/vrai-pts.png" alt="800x400" title="J'aurais voulu ne jamais le savoir" /></p>
+
+<p>Le processus xterm est un émulateur de terminal. Il utilise donc les pseudos terminaux… Les serveurs SSH utilisent aussi les pseudos terminaux. Ils jouent un role de multiplexeur entre la partie réseau et terminal.</p>
+
+<h3 id="mais-pourquoi-un-maître-et-un-esclave-">Mais pourquoi un maître et un esclave ?</h3>
+
+<p>Le rôle de l’esclave est d’être attaché à un pseudo terminal qui quand on écrit dedans simule une sortie sur la console. En lecture, il attend le clavier. Le rôle du maître est de simuler l’entrée du clavier en écrivant dessus et de lire le contenu du terminal pour lire sa sortie. Le maître est l’opposé de l’esclave.</p>
+
+<h3 id="dautres-fonctions-des-pts">D’autres fonctions des pts</h3>
+
+<p>Les pseudos terminaux peuvent avoir des modes de fonctionnement différent pour simuler des comportements différents. Il existe des modes comme le mode RAW, qui permet au terminal de ne plus avoir de comportement spécial comme le fait de fournir un retour lors d’une touche frappé au clavier. Les pseudos terminaux servent aussi d’interface pour gérer les colonnes et les lignes.</p>
+
+<h2 id="petite-conclu-là-des-">Petite conclu là, des !</h2>
+
+<p>On a vu le fonctionnement des PTS et c’est déjà pas mal ! Il existe pas mal de petites configurations des terminaux. Par exemple, on peut s’en servir pour lire des ports séries. Je n’ai pas abordé le mode canonique. Donc la seule lecture de ma page ne vous fournira pas toutes les informations nécessaires sur les terminaux. N’empêche que pour trouver des informations à ce sujet, il faut savoir chercher et expérimenter. Je vous laisse avec ce bout de code pour faire joue-joue avec les pts !</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _XOPEN_SOURCE 600
+#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">fdm</span><span class="p">,</span> <span class="n">fds</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">pts_name</span><span class="p">;</span>
+
+    <span class="n">fdm</span> <span class="o">=</span> <span class="n">posix_openpt</span><span class="p">(</span><span class="n">O_RDWR</span><span class="p">);</span> <span class="c1">// ouvre le /dev/ptmx</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fdm</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"Erreur ouverture maître PTY"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">grantpt</span><span class="p">(</span><span class="n">fdm</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"Erreur grantpt"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">unlockpt</span><span class="p">(</span><span class="n">fdm</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"Erreur unlockpt"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">pts_name</span> <span class="o">=</span> <span class="n">ptsname</span><span class="p">(</span><span class="n">fdm</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pts_name</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"Erreur ptsname"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"PTY esclave : %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">pts_name</span><span class="p">);</span>
+
+    <span class="n">fds</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">pts_name</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fds</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"Erreur ouverture esclave PTY"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Pseudo-terminal alloué avec succès</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="c1">// ici vous pouvez fork exec</span>
+	<span class="c1">// dans le nouveau processus fermer 0,1,2 avec close(0);close(1);close(2)</span>
+	<span class="c1">// faite dup2(fds,0); dup2(fds,1);dup2(fds,2);</span>
+	<span class="c1">// puis exec</span>
+	<span class="c1">// dans le processus parent. Vous pouvez envoyer des données avec write pour controler le nouveau processus</span>
+	<span class="c1">// ceci fonctionne même avec des programmes qui alloue du curses comme vim</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fdm</span><span class="p">);</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fds</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Des bisous !</p>
+
+  
+</article>
+
+
+
+  <hr class="dingbat related mb6" />
+
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="https://avatars.githubusercontent.com/u/80053810?v=4"
+    srcset="https://avatars.githubusercontent.com/u/80053810?v=4 1x,https://avatars.githubusercontent.com/u/80053810?v=4 2x"
+    
+  
+  alt="Mafilus Network"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Flemme.</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/Mafilus" title="X / Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X / Twitter</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/mafilus" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  
+
+  
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© -39999 to 2024. All rights reserved.
+</small></p>
+  
+  
+    <nav class="legal"><small>
+    
+      
+      <a class="heading flip-title" href="/LICENSE/">LICENSE</a>
+      |
+    
+      
+      <a class="heading flip-title" href="/NOTICE/">NOTICE</a>
+      |
+    
+      
+      <a class="heading flip-title" href="/CHANGELOG/">CHANGELOG</a>
+      
+    
+    </small></nav>
+  
+    <p><small>Powered by <a class="external" href="https://hydejack.com/">Hydejack</a> v<span id="_version">9.2.1</span></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+
+
+
+
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+
+    <div class="sidebar-sticky">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/logo.png" class="avatar" alt="Mafilus Diaries" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Mafilus Diaries</h2></a>
+    
+    
+      <p class="">
+        Aller les potos
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/charlie/"
+          class="sidebar-nav-item "
+          
+        >
+          Où est charlie ?
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/diaries/"
+          class="sidebar-nav-item "
+          
+        >
+          Mes diaries
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          Moi, moi... Moi!
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/Mafilus" title="X / Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X / Twitter</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/mafilus" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.1.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.1.js" nomodule defer></script>
+  
+
+  
+
+<!--<![endif]-->
+  <!--
+Code for integrating CloudFlare's email protection with Hydejack's single page app loading.
+-->
+<script>
+  document.getElementById('_pushState').addEventListener('hy-push-state-after', function (e) {
+    function e(e){
+      (console.error?console.error:console.log).call(console,e)
+    }
+
+    function t(e){
+      return l.innerHTML='<a href="'+e.replace(/"/g,"&quot;")+'"></a>',l.childNodes[0].getAttribute("href")
+    }
+
+    function r(e,t){
+      var r=e.substr(t,2);return parseInt(r,16)
+    }
+
+    function n(e,n){
+      for(var o="",c=r(e,n),a=n+2;a<e.length;a+=2){
+        var l=r(e,a)^c;
+        o+=String.fromCharCode(l)
+      }
+      return t(o)
+    }
+
+    var o="/cdn-cgi/l/email-protection#",
+        c=".__cf_email__",
+        a="data-cfemail",
+        l=document.createElement("div");
+
+    !function(){
+      for(var t=document.getElementsByTagName("a"),r=0;r<t.length;r++)
+        try{
+          var c=t[r],a=c.href.indexOf(o);
+          a>-1&&(c.href="mailto:"+n(c.href,a+o.length))
+        }catch(t){
+          e(t)
+        }
+    }(),
+    function(){
+      for(var t=document.querySelectorAll(c),r=0;r<t.length;r++)
+        try{
+          var o=t[r],l=n(o.getAttribute(a),0),i=document.createTextNode(l);
+          o.parentNode.replaceChild(i,o)
+        }catch(t){
+          e(t)
+        }
+    }()
+  });
+</script>
+
+
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">En route Marcel !</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      "J'ai merdé, j'ai fait un erreur. Est-ce que je dirais que c'était un échec ? Non, mais je dirais clairement que ça n'a pas fonctionné."
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>
