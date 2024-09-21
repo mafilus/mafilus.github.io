@@ -39,17 +39,17 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 <meta property="og:locale" content="fr" />
 <meta name="description" content="Tu as pt ou tu n’as pas pt." />
 <meta property="og:description" content="Tu as pt ou tu n’as pas pt." />
-<link rel="canonical" href="http://localhost:4000/diaries/2024-09-19-taptounon/" />
-<meta property="og:url" content="http://localhost:4000/diaries/2024-09-19-taptounon/" />
+<link rel="canonical" href="https://mafilus.github.io/diaries/2024-09-19-taptounon/" />
+<meta property="og:url" content="https://mafilus.github.io/diaries/2024-09-19-taptounon/" />
 <meta property="og:site_name" content="Mafilus Diaries" />
-<meta property="og:image" content="http://localhost:4000/assets/img/blog/pts.png" />
+<meta property="og:image" content="https://mafilus.github.io/assets/img/blog/pts.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2024-09-19T00:00:00+02:00" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="http://localhost:4000/assets/img/blog/pts.png" />
+<meta property="twitter:image" content="https://mafilus.github.io/assets/img/blog/pts.png" />
 <meta property="twitter:title" content="Pseudo Terminal Master / Pseudo Terminal Slave" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-19T09:12:27+02:00","datePublished":"2024-09-19T00:00:00+02:00","description":"Tu as pt ou tu n’as pas pt.","headline":"Pseudo Terminal Master / Pseudo Terminal Slave","image":"http://localhost:4000/assets/img/blog/pts.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/diaries/2024-09-19-taptounon/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Mafilus Network"},"url":"http://localhost:4000/diaries/2024-09-19-taptounon/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-21T04:08:12+02:00","datePublished":"2024-09-19T00:00:00+02:00","description":"Tu as pt ou tu n’as pas pt.","headline":"Pseudo Terminal Master / Pseudo Terminal Slave","image":"https://mafilus.github.io/assets/img/blog/pts.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://mafilus.github.io/diaries/2024-09-19-taptounon/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/diaries/2024-09-19-taptounon/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -83,9 +83,9 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 <meta name="generator" content="Hydejack v9.2.1" />
 
 
-<link rel="alternate" href="http://localhost:4000/diaries/2024-09-19-taptounon/" hreflang="fr">
+<link rel="alternate" href="https://mafilus.github.io/diaries/2024-09-19-taptounon/" hreflang="fr">
 
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Mafilus Diaries" />
+<link type="application/atom+xml" rel="alternate" href="https://mafilus.github.io/feed.xml" title="Mafilus Diaries" />
 
 
 <link rel="shortcut icon"    href="/assets/img/icons/favicon.ico">
@@ -122,7 +122,7 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
   w._search = {
     DATA_URL: '/assets/sitedata.json?no-cache',
     STORAGE_KEY: 'mini-search/',
-    INDEX_KEY: 'index--2024-09-19T09:12:44+02:00',
+    INDEX_KEY: 'index--2024-09-21T07:57:08+02:00',
   };
   w._clapButton = true;
 }(window);</script>
@@ -151,49 +151,7 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
 <!--<![endif]-->
 
 
-<!-- Add HTML tags here to be included in the head. You can delete the below: -->
-<link rel="dns-prefetch" href="https://assets.gumroad.com">
-<script type="module">
-  const loadJS = x => new Promise(r => window.loadJS(x).addEventListener('load', r));
 
-  let p1, p2, io1, io2, embedCreated, overlayCreated;
-  document.querySelector('hy-push-state').addEventListener('load', () => {
-    io1 ||= new IntersectionObserver(async (entries) => {
-      if (entries.some(x => x.isIntersecting)) {
-        p1 = p1 || loadJS('https://gumroad.com/js/gumroad-embed.js');
-        await p1;
-        !embedCreated && await new Promise(function check1(res) {
-          if (typeof createGumroadEmbed !== 'undefined')  {
-            embedCreated = 1;
-            res(createGumroadEmbed());
-          }
-          else setTimeout(() => check1(res), 200);
-        });
-        await new Promise(function check2(res) {
-          if (typeof GumroadEmbed !== 'undefined') res(GumroadEmbed.reload());
-          else setTimeout(() => check2(res), 200);
-        });
-      }
-    }, { rootMargin: '1440px' });
-
-    io2 ||= new IntersectionObserver(async (entries) => {
-      if (entries.some(x => x.isIntersecting)) {
-        p2 = p2 || loadJS('https://gumroad.com/js/gumroad.js');
-        await p2;
-        !overlayCreated && await new Promise(function check(res) {
-          if (typeof createGumroadOverlay !== 'undefined') {
-            overlayCreated = 1;
-            res(createGumroadOverlay());
-          }
-          else setTimeout(() => check(res), 200);
-        });
-      }
-    }, { rootMargin: '300px' });
-
-    document.querySelectorAll('.gumroad-product-embed').forEach(el => io1.observe(el));
-    document.querySelectorAll('.gumroad-button').forEach(el => io2.observe(el));
-  });
-</script>
 
 
 </head>
@@ -290,6 +248,14 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
           
           
           
+            
+            
+            <span class="ellipsis" data-tippy-content="Pas touché avant: 21 Sep 2024">
+              <span class="sr-only">Pas touché avant:</span>
+              <span class="icon-history"></span>
+              <time datetime="2024-09-21T04:08:12+02:00">2024-09-21</time>
+            </span>
+          
         
       
     </div>
@@ -333,7 +299,7 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
   </header>
 
   
-    <p>Les premiers développements de <strong>programme C</strong> utilisent souvent des structures de données capables de lire le clavier dans une console et d’écrire dans une console. Ses structures sont aux nombres de trois : <em>stdin, stdout, stderr</em>. Ses structures représentent les fameuses <strong>entrées/sorties</strong> des programmes. Dans mes études, j’ai appris à manipuler ses structures pour comprendre le fonctionnement et à maitriser les arcanes des entrées et sorties des programmes <strong>consoles</strong>. Le sujet va couvrir essentiellement <strong>Linux</strong>.</p>
+    <p>Les premiers développements de <strong>programme C</strong> utilisent souvent des structures de données capables de lire le clavier dans une console et d’écrire dans une console. Ses structures sont aux nombres de trois : <em>stdin, stdout, stderr</em>. Ses structures représentent les fameuses <strong>entrées/sorties</strong> des programmes. Dans mes études, j’ai appris à manipuler ses structures pour comprendre le fonctionnement et maitriser les arcanes des entrées et sorties des programmes <strong>consoles</strong>. Le sujet va couvrir essentiellement <strong>Linux</strong>.</p>
 
 <h2 id="du-standard-c-à-la-vérité-du-noyau-linux">Du standard C à la vérité du noyau Linux</h2>
 
@@ -503,7 +469,7 @@ Voici un exemple plus proche de la vérité :</p>
     About
   </h2>
 
-  <p>Flemme.</p>
+  <p>Je suis chercheur en cybersécurité. Au chômage, j’expérimente les différents domaines de la cybersécurité. Je peux passer mes journées à développer un outil, un service dans une pléthore de pile logicielle, à implémenter des laboratoires de recherche sur diverses technologies et analyser des menaces. J’ai un peu côté pour la gouvernance : gestion du risque. Je suis spécialisé dans les techniques de contournement de sécurité. Donc, je suis un fin connaisseur des technologies liées aux mesures de sécurité.<br /><br />Niveau pro : j’ai fait de l’audit de pentest en mode red team, mais en contrat pentest, de l’investigation numérique. J’ai été formateur, j’ai envie de mettre formatueur, parce que c’est drôle. J’ai fait des études en sysadmin et en réseau, j’ai fait des études en dev système. Pour la dernière, je n’avais pas mis un pied dans une école d’informatique que je savais écrire des daemons réseaux en C. Les profs que j’avais n’avaient jamais fait ça de leur vie. <em>insérer rire gras</em>. Bonne base de connaissance, là. <br /><br />Niveau perso : j’aime les chats.</p>
 
 
   <div class="sidebar-social">
@@ -577,6 +543,8 @@ Voici un exemple plus proche de la vérité :</p>
     
 
 
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Mes trucs</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/diaries/2024-09-21-edr-vs-script/" class="flip-title"><span>Bring Your Own Script Interpreter</span></a>  <time class="faded fine" datetime="2024-09-21T00:00:00+02:00">21 Sep 2024</time></li>            </ul></aside>
+
   
 
   
@@ -594,15 +562,7 @@ Voici un exemple plus proche de la vérité :</p>
     <nav class="legal"><small>
     
       
-      <a class="heading flip-title" href="/LICENSE/">LICENSE</a>
-      |
-    
-      
-      <a class="heading flip-title" href="/NOTICE/">NOTICE</a>
-      |
-    
-      
-      <a class="heading flip-title" href="/CHANGELOG/">CHANGELOG</a>
+      <a class="heading flip-title" href="/LICENCE/">LICENCE</a>
       
     
     </small></nav>
@@ -628,7 +588,7 @@ Voici un exemple plus proche de la vérité :</p>
 
 
 
-<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/bg.jpeg)"></div>
 
     <div class="sidebar-sticky">
   <div class="sidebar-about">
@@ -672,7 +632,7 @@ Voici un exemple plus proche de la vérité :</p>
           class="sidebar-nav-item "
           
         >
-          Mes diaries
+          Mes vampires diaries
         </a>
       </li>
     

@@ -25,26 +25,28 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 
 
 
+  <meta name="robots" content="noindex">
+
 
 
   
     
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Blog | Mafilus Diaries</title>
+<title>Diaries | Mafilus Diaries</title>
 <meta name="generator" content="Jekyll v4.3.4" />
-<meta property="og:title" content="Blog" />
+<meta property="og:title" content="Diaries" />
 <meta name="author" content="Mafilus Network" />
 <meta property="og:locale" content="fr" />
-<meta name="description" content="The official Hydejack blog. Version updates, example content and how-to guides on how to blog with Jekyll." />
-<meta property="og:description" content="The official Hydejack blog. Version updates, example content and how-to guides on how to blog with Jekyll." />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
+<meta name="description" content="Journeaux de Mafilus. Orienté CyberSec." />
+<meta property="og:description" content="Journeaux de Mafilus. Orienté CyberSec." />
+<link rel="canonical" href="https://mafilus.github.io/" />
+<meta property="og:url" content="https://mafilus.github.io/" />
 <meta property="og:site_name" content="Mafilus Diaries" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Blog" />
+<meta property="twitter:title" content="Diaries" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-19T03:30:06+02:00","description":"The official Hydejack blog. Version updates, example content and how-to guides on how to blog with Jekyll.","headline":"Blog","name":"Mafilus Diaries","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Mafilus Network"},"url":"http://localhost:4000/"}</script>
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-21T04:08:12+02:00","description":"Journeaux de Mafilus. Orienté CyberSec.","headline":"Diaries","name":"Mafilus Diaries","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -78,9 +80,9 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 <meta name="generator" content="Hydejack v9.2.1" />
 
 
-<link rel="alternate" href="http://localhost:4000/" hreflang="fr">
+<link rel="alternate" href="https://mafilus.github.io/" hreflang="fr">
 
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Mafilus Diaries" />
+<link type="application/atom+xml" rel="alternate" href="https://mafilus.github.io/feed.xml" title="Mafilus Diaries" />
 
 
 <link rel="shortcut icon"    href="/assets/img/icons/favicon.ico">
@@ -117,7 +119,7 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
   w._search = {
     DATA_URL: '/assets/sitedata.json?no-cache',
     STORAGE_KEY: 'mini-search/',
-    INDEX_KEY: 'index--2024-09-19T09:12:44+02:00',
+    INDEX_KEY: 'index--2024-09-21T07:57:08+02:00',
   };
   w._clapButton = true;
 }(window);</script>
@@ -146,49 +148,7 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
 <!--<![endif]-->
 
 
-<!-- Add HTML tags here to be included in the head. You can delete the below: -->
-<link rel="dns-prefetch" href="https://assets.gumroad.com">
-<script type="module">
-  const loadJS = x => new Promise(r => window.loadJS(x).addEventListener('load', r));
 
-  let p1, p2, io1, io2, embedCreated, overlayCreated;
-  document.querySelector('hy-push-state').addEventListener('load', () => {
-    io1 ||= new IntersectionObserver(async (entries) => {
-      if (entries.some(x => x.isIntersecting)) {
-        p1 = p1 || loadJS('https://gumroad.com/js/gumroad-embed.js');
-        await p1;
-        !embedCreated && await new Promise(function check1(res) {
-          if (typeof createGumroadEmbed !== 'undefined')  {
-            embedCreated = 1;
-            res(createGumroadEmbed());
-          }
-          else setTimeout(() => check1(res), 200);
-        });
-        await new Promise(function check2(res) {
-          if (typeof GumroadEmbed !== 'undefined') res(GumroadEmbed.reload());
-          else setTimeout(() => check2(res), 200);
-        });
-      }
-    }, { rootMargin: '1440px' });
-
-    io2 ||= new IntersectionObserver(async (entries) => {
-      if (entries.some(x => x.isIntersecting)) {
-        p2 = p2 || loadJS('https://gumroad.com/js/gumroad.js');
-        await p2;
-        !overlayCreated && await new Promise(function check(res) {
-          if (typeof createGumroadOverlay !== 'undefined') {
-            overlayCreated = 1;
-            res(createGumroadOverlay());
-          }
-          else setTimeout(() => check(res), 200);
-        });
-      }
-    }, { rootMargin: '300px' });
-
-    document.querySelectorAll('.gumroad-product-embed').forEach(el => io1.observe(el));
-    document.querySelectorAll('.gumroad-button').forEach(el => io2.observe(el));
-  });
-</script>
 
 
 </head>
@@ -227,7 +187,7 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
 
 
 
-<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/bg.jpeg)"></div>
 
     <div class="sidebar-sticky">
   <div class="sidebar-about">
@@ -271,7 +231,7 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
           class="sidebar-nav-item "
           
         >
-          Mes diaries
+          Mes vampires diaries
         </a>
       </li>
     
@@ -371,41 +331,72 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
 
   <main
   id="_main"
-  class="content layout-blog"
+  class="content layout-list"
   role="main"
 >
   <nav id="breadcrumbs" class="screen-only"><ul>
   
   
 </ul></nav>
+  <article class="page mb6" role="article">
+  <header>
+    <h1 class="page-title">Diaries</h1>
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
   
 
 
+
+
+
+
+
+
+
+
+  
+  
+    
+    <h2 id="y-2024" class="hr-bottom">2024</h2>
+    <ul class="related-posts">
+    
+  
   
 
 
+<li class="h4">
+  <a href="/diaries/2024-09-21-edr-vs-script/" class="flip-title"><span>Bring Your Own Script Interpreter</span></a>
+  <time class="faded fine" datetime="2024-09-21T00:00:00+02:00">21 Sep</time>
+</li>
 
-  <h2 class="sr-only">Pagination</h2>
-<nav class="pagination heading clearfix" role="navigation">
-  <ul>
-    <li class="pagination-item older" >
-      
-      
-      
-  <span class=" ">Older</span>
+  
 
-
-    </li>
-    <li class="pagination-item newer" >
-      
-      
-      
-  <span class=" ">Newer</span>
+  
+  
+  
 
 
-    </li>
+<li class="h4">
+  <a href="/diaries/2024-09-19-taptounon/" class="flip-title"><span>Pseudo Terminal Master / Pseudo Terminal Slave</span></a>
+  <time class="faded fine" datetime="2024-09-19T00:00:00+02:00">19 Sep</time>
+</li>
+
   </ul>
-</nav>
+
+
+</article>
+
+
+  <hr class="dingbat related mb6" />
+
+
 
 
 
@@ -420,15 +411,7 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
     <nav class="legal"><small>
     
       
-      <a class="heading flip-title" href="/LICENSE/">LICENSE</a>
-      |
-    
-      
-      <a class="heading flip-title" href="/NOTICE/">NOTICE</a>
-      |
-    
-      
-      <a class="heading flip-title" href="/CHANGELOG/">CHANGELOG</a>
+      <a class="heading flip-title" href="/LICENCE/">LICENCE</a>
       
     
     </small></nav>

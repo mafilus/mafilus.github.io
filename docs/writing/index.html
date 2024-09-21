@@ -39,14 +39,14 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 <meta property="og:locale" content="fr" />
 <meta name="description" content="Hydejack offers a few additional features to markup your content. Don’t worry, these are merely CSS classes added with kramdown’s {:...} syntax, so that your content remains compatible with other Jekyll themes." />
 <meta property="og:description" content="Hydejack offers a few additional features to markup your content. Don’t worry, these are merely CSS classes added with kramdown’s {:...} syntax, so that your content remains compatible with other Jekyll themes." />
-<link rel="canonical" href="http://localhost:4000/docs/writing/" />
-<meta property="og:url" content="http://localhost:4000/docs/writing/" />
+<link rel="canonical" href="https://mafilus.github.io/docs/writing/" />
+<meta property="og:url" content="https://mafilus.github.io/docs/writing/" />
 <meta property="og:site_name" content="Mafilus Diaries" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Writing" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-19T03:30:06+02:00","description":"Hydejack offers a few additional features to markup your content. Don’t worry, these are merely CSS classes added with kramdown’s {:...} syntax, so that your content remains compatible with other Jekyll themes.","headline":"Writing","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Mafilus Network"},"url":"http://localhost:4000/docs/writing/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-19T03:30:06+02:00","description":"Hydejack offers a few additional features to markup your content. Don’t worry, these are merely CSS classes added with kramdown’s {:...} syntax, so that your content remains compatible with other Jekyll themes.","headline":"Writing","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/docs/writing/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -80,9 +80,9 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 <meta name="generator" content="Hydejack v9.2.1" />
 
 
-<link rel="alternate" href="http://localhost:4000/docs/writing/" hreflang="fr">
+<link rel="alternate" href="https://mafilus.github.io/docs/writing/" hreflang="fr">
 
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Mafilus Diaries" />
+<link type="application/atom+xml" rel="alternate" href="https://mafilus.github.io/feed.xml" title="Mafilus Diaries" />
 
 
 <link rel="shortcut icon"    href="/assets/img/icons/favicon.ico">
@@ -119,7 +119,7 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
   w._search = {
     DATA_URL: '/assets/sitedata.json?no-cache',
     STORAGE_KEY: 'mini-search/',
-    INDEX_KEY: 'index--2024-09-19T09:12:44+02:00',
+    INDEX_KEY: 'index--2024-09-21T07:57:08+02:00',
   };
   w._clapButton = true;
 }(window);</script>
@@ -148,49 +148,7 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
 <!--<![endif]-->
 
 
-<!-- Add HTML tags here to be included in the head. You can delete the below: -->
-<link rel="dns-prefetch" href="https://assets.gumroad.com">
-<script type="module">
-  const loadJS = x => new Promise(r => window.loadJS(x).addEventListener('load', r));
 
-  let p1, p2, io1, io2, embedCreated, overlayCreated;
-  document.querySelector('hy-push-state').addEventListener('load', () => {
-    io1 ||= new IntersectionObserver(async (entries) => {
-      if (entries.some(x => x.isIntersecting)) {
-        p1 = p1 || loadJS('https://gumroad.com/js/gumroad-embed.js');
-        await p1;
-        !embedCreated && await new Promise(function check1(res) {
-          if (typeof createGumroadEmbed !== 'undefined')  {
-            embedCreated = 1;
-            res(createGumroadEmbed());
-          }
-          else setTimeout(() => check1(res), 200);
-        });
-        await new Promise(function check2(res) {
-          if (typeof GumroadEmbed !== 'undefined') res(GumroadEmbed.reload());
-          else setTimeout(() => check2(res), 200);
-        });
-      }
-    }, { rootMargin: '1440px' });
-
-    io2 ||= new IntersectionObserver(async (entries) => {
-      if (entries.some(x => x.isIntersecting)) {
-        p2 = p2 || loadJS('https://gumroad.com/js/gumroad.js');
-        await p2;
-        !overlayCreated && await new Promise(function check(res) {
-          if (typeof createGumroadOverlay !== 'undefined') {
-            overlayCreated = 1;
-            res(createGumroadOverlay());
-          }
-          else setTimeout(() => check(res), 200);
-        });
-      }
-    }, { rootMargin: '300px' });
-
-    document.querySelectorAll('.gumroad-product-embed').forEach(el => io1.observe(el));
-    document.querySelectorAll('.gumroad-button').forEach(el => io2.observe(el));
-  });
-</script>
 
 
 </head>
@@ -941,15 +899,7 @@ Instead, <code class="language-plaintext highlighter-rouge">aligned</code> shoul
     <nav class="legal"><small>
     
       
-      <a class="heading flip-title" href="/LICENSE/">LICENSE</a>
-      |
-    
-      
-      <a class="heading flip-title" href="/NOTICE/">NOTICE</a>
-      |
-    
-      
-      <a class="heading flip-title" href="/CHANGELOG/">CHANGELOG</a>
+      <a class="heading flip-title" href="/LICENCE/">LICENCE</a>
       
     
     </small></nav>
@@ -975,7 +925,7 @@ Instead, <code class="language-plaintext highlighter-rouge">aligned</code> shoul
 
 
 
-<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/bg.jpeg)"></div>
 
     <div class="sidebar-sticky">
   <div class="sidebar-about">
@@ -1019,7 +969,7 @@ Instead, <code class="language-plaintext highlighter-rouge">aligned</code> shoul
           class="sidebar-nav-item "
           
         >
-          Mes diaries
+          Mes vampires diaries
         </a>
       </li>
     
