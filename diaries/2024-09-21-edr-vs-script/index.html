@@ -37,8 +37,8 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 <meta property="og:title" content="Bring Your Own Script Interpreter" />
 <meta name="author" content="Mafilus Network" />
 <meta property="og:locale" content="fr" />
-<meta name="description" content="Ceci n’est qu’un fichier text." />
-<meta property="og:description" content="Ceci n’est qu’un fichier text." />
+<meta name="description" content="Ceci n’est qu’un fichier “txt”." />
+<meta property="og:description" content="Ceci n’est qu’un fichier “txt”." />
 <link rel="canonical" href="https://mafilus.github.io/diaries/2024-09-21-edr-vs-script/" />
 <meta property="og:url" content="https://mafilus.github.io/diaries/2024-09-21-edr-vs-script/" />
 <meta property="og:site_name" content="Mafilus Diaries" />
@@ -49,7 +49,7 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 <meta property="twitter:image" content="https://mafilus.github.io/assets/img/blog/byosi.png" />
 <meta property="twitter:title" content="Bring Your Own Script Interpreter" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-21T06:57:38+02:00","datePublished":"2024-09-21T00:00:00+02:00","description":"Ceci n’est qu’un fichier text.","headline":"Bring Your Own Script Interpreter","image":"https://mafilus.github.io/assets/img/blog/byosi.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://mafilus.github.io/diaries/2024-09-21-edr-vs-script/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/diaries/2024-09-21-edr-vs-script/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-21T10:00:34+02:00","datePublished":"2024-09-21T00:00:00+02:00","description":"Ceci n’est qu’un fichier “txt”.","headline":"Bring Your Own Script Interpreter","image":"https://mafilus.github.io/assets/img/blog/byosi.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://mafilus.github.io/diaries/2024-09-21-edr-vs-script/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/diaries/2024-09-21-edr-vs-script/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -122,7 +122,7 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
   w._search = {
     DATA_URL: '/assets/sitedata.json?no-cache',
     STORAGE_KEY: 'mini-search/',
-    INDEX_KEY: 'index--2024-09-21T09:37:39+02:00',
+    INDEX_KEY: 'index--2024-09-22T06:10:01+02:00',
   };
   w._clapButton = true;
 }(window);</script>
@@ -282,7 +282,7 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
 
   
     <p class="note-sm" >
-      Ceci n’est qu’un fichier text.
+      Ceci n’est qu’un fichier “txt”.
 
     </p>
   
@@ -291,30 +291,29 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
   </header>
 
   
-    <p>Récemment, j’ai effectué l’analyse d’un programme de type stealer. Le programme n’est pas détecté comme une menace parmi les solutions de sécurité. Son code source et son comportement ne laissait aucun doute sur la nature du programme. Alors pourquoi ce programme n’était pas détecté comme une menace ?</p>
+    <p>Récemment, j’ai effectué l’analyse d’un programme de type stealer. Le programme n’est pas détecté comme une menace parmi les solutions de sécurité. Son code source et son comportement ne laissait aucun doute sur la nature du programme. Alors pourquoi ce programme <em>n’était pas détecté comme une menace</em> ?</p>
 
-<h2 id="lexemple-du-stealer-en-question">L’exemple du stealer en question</h2>
+<h2 id="lexemple-du-stealer">L’exemple du stealer</h2>
 
-<p>Le stealer en question s’installe via une charge écrite en batch. Le Batch est un fichier script qui permet de lancer des enchainements de plusieurs commandes. Celui-ci utilisait PowerShell afin de télécharger un fichier archive de type zip. Le script installait le contenu de l’archive et exécutait un programme dans ce contenu. Heureusement, cette  partie était bien détectée par les solutions de sécurité. La suite de la charge malveillante ne l’est malheureusement pas !</p>
+<p>Le stealer en question s’installe via une charge écrite en batch. Le Batch est un fichier script qui permet de lancer des enchainements de plusieurs commandes. Celui-ci utilisait PowerShell afin de télécharger un fichier archive de type zip. Le script installait le contenu de l’archive et exécutait un programme dans ce contenu. Heureusement, cette partie était bien détectée par les solutions de sécurité. La suite de la charge malveillante ne l’est malheureusement pas !</p>
 
-<p>Le programme installé est un interpréteur de langage de programmation. 
-Ce programme lit un ensemble de fichier et exécute les actions du fichier comme à la manière d’un fichier batch. Dans le contexte du stealer, l’interpréteur était Python. Très connu des développeurs, ce programme interpréteur permet d’écrire de nombreux scripts dans des domaines variés (IA, réseau, site web, bureautique, base de données, etc). Ce programme est légitime. Il n’est pas malveillant en soi. Cependant, son usage ne l’est pas toujours ! Comme tout programme compilé, il est nécessaire d’obtenir une télémétrie sur des programmes interpréteurs. Cette télémétrie pourra à l’avenir détecter des comportements suspects.</p>
+<p>Le programme installé est un interpréteur de langage de programmation. Ce programme lit un ensemble de fichier et exécute les actions du fichier comme à la manière d’un fichier batch. Dans le contexte du stealer, l’interpréteur était Python. Très connu des développeurs, ce programme interpréteur permet d’écrire de nombreux scripts dans des domaines variés (IA, réseau, site web, bureautique, base de données, etc). Ce programme est légitime. Il n’est pas malveillant en soi. Cependant, son usage ne l’est pas toujours ! Comme tout programme compilé, il est nécessaire d’obtenir une télémétrie sur des programmes interpréteurs. Cette télémétrie pourra à l’avenir détecter des comportements suspects.</p>
 
-<p>Le script du stealer quant à lui piochait ses informations dans de nombreux fichiers des navigateurs web. Il récoltait les mots de passe enregistrés ainsi que les numéros de carte de crédit ! Malgré une évidence dans le comportement malveillant de ce programme, les solutions  de sécurité de catégorie Endpoint Dectection Response (abrégé EDR) n’ont  émis aucune alerte !</p>
+<p>Le script du stealer quant à lui piochait ses informations dans de nombreux fichiers des navigateurs web. Il récoltait les mots de passe enregistrés ainsi que les numéros de carte de crédit ! Malgré une évidence dans le comportement malveillant de ce programme, les solutions de sécurité de catégorie Endpoint Dectection Response (abrégé EDR) n’ont émis aucune alerte !</p>
 
 <h2 id="les-edr-et-antivirus">Les EDR et Antivirus</h2>
 
-<p>Pourquoi les solutions de sécurité n’ont pas détecté ce programme malveillant ? La cause est que ce programme est lancé par un interpréteur de script.</p>
+<p>Pourquoi les solutions de sécurité n’ont pas détecté ce programme malveillant ? La cause est que ce programme est lancée par un interpréteur de script.</p>
 
 <h3 id="analyse-statique">Analyse statique</h3>
 
-<p>La partie analyse statique des EDR et Antivirus se font berner par la nature d’un script. Un script est un fichier de type texte. Depuis un certain temps, les solutions de sécurité ont intégré les scripts batch, JavaScript et PowerShell comme des fichiers pouvant être suspects. Ses fichiers sont par nature de type texte et possèdent une extension. Pour les scripts de divers interpréteurs de commande, il existe une convention, mais il n’y a pas besoin de les respecter. En soi, une solution de sécurité ne peut pas détecter si un fichier texte abrite du code valide pour des interpréteurs. Du moins, il faudrait complexifier l’analyse statique.</p>
+<p>La partie analyse statique des EDR et Antivirus se font berner par la nature d’un script. Un script est un fichier de type texte. Depuis un certain temps, les solutions de sécurité ont intégré les scripts batch, JavaScript et PowerShell comme des fichiers pouvant être suspects. Ses fichiers sont par nature de type texte et possèdent une extension. Pour les scripts de divers interpréteurs de commande, il existe une convention, mais il n’y a pas besoin de les respecter. Un fichier python peut très bien avoir une extension “.txt”, “.random”, etc. Le contenu de celui peut être obscurci (en: obfuscation) rendant la nature de l’identification difficile. En soi, une solution de sécurité ne peut pas détecter si un fichier texte abrite du code valide pour des interpréteurs. Du moins, il faudrait complexifier l’analyse statique.</p>
 
 <h3 id="analyse-dynamique">Analyse Dynamique</h3>
 
 <p>L’analyse dynamique offre beaucoup plus d’opportunité de détection. La télémétrie comportementale peut ainsi aisément détecter l’ouverture de fichier sensible par des programmes inhabituels. Dans le cas du stealer, le processus python aurait dû être détecté comme suspect ! Il n’en est rien. Et ceux parce que la télémétrie a été sciemment désactivé par la solution comportementale.</p>
 
-<p>Les programmes sur Windows possèdent une signature qui permet de vérifier l’authenticité de l’origine de celui-ci. Le programme python possède une signature valide et conforme. Il n’est en rien suspect, car il est légitime. Cette légitimité applique une règle de liste blanche sur le processus python. Ainsi, le stealer profite de cette légitimité pour être indétectable.</p>
+<p>Les programmes sur Windows possèdent une signature qui permet de vérifier l’authenticité de l’origine de celui-ci. Le programme python possède une signature valide et conforme. Il n’est en rien suspect, car il est légitime. Cette légitimité applique une règle de liste blanche sur le processus python. Ainsi, le stealer profite de cette légitimité pour être indétectable. Cette technique se nomme : “<strong>Bring Your Own Script Interpreter</strong>”.</p>
 
 <p>Une autre explication est possible. Le volume de télémétrie est bien trop important lors de l’usage d’interpréteur. Les solutions de sécurité sont incapables de faire de la prise de décision sur les comportements illégitimes.</p>
 
@@ -324,7 +323,7 @@ Ce programme lit un ensemble de fichier et exécute les actions du fichier comme
 
 <p>Toute l’utilité de la télémétrie est d’être envoyée au sein d’un SIEM qui lui alertera sur des comportements suspects. Il est nécessaire d’appliquer des indicateurs de compromission correspondant au système d’information plutôt que de se reposer sur l’efficacité des solutions de sécurité avec des prises de décision automatique.</p>
 
-<p>Quand on y réfléchit, la philosophie de protéger l’avale sans prendre en compte l’amont d’une attaque me fait persister à dire que les solutions de détection sont aussi loin d’être magiques.</p>
+<p>Quand on y réfléchit, la philosophie de protéger l’amont sans prendre en compte l’avale d’une attaque me fait persister à dire que les solutions de détection sont aussi loin d’être magiques.</p>
 
 <h2 id="source-">Source :</h2>
 <p>Malware support group : <a href="https://github.com/MalwareSupportGroup/PolyDrop">lien du projet sur github</a></p>
@@ -452,7 +451,7 @@ Ce programme lit un ensemble de fichier et exécute les actions du fichier comme
     
 
 
-  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Mes trucs</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/diaries/2024-09-19-taptounon/" class="flip-title"><span>Pseudo Terminal Master / Pseudo Terminal Slave</span></a>  <time class="faded fine" datetime="2024-09-19T00:00:00+02:00">19 Sep 2024</time></li>            </ul></aside>
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Mes trucs</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/diaries/2024-09-22-fake-captcha/" class="flip-title"><span>Fake Captcha</span></a>  <time class="faded fine" datetime="2024-09-22T00:00:00+02:00">22 Sep 2024</time></li>                        <li class="h4">  <a href="/diaries/2024-09-19-taptounon/" class="flip-title"><span>Pseudo Terminal Master / Pseudo Terminal Slave</span></a>  <time class="faded fine" datetime="2024-09-19T00:00:00+02:00">19 Sep 2024</time></li>            </ul></aside>
 
   
 
