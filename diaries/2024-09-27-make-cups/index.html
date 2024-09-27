@@ -49,7 +49,7 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 <meta property="twitter:image" content="https://mafilus.github.io/assets/img/blog/impr.png" />
 <meta property="twitter:title" content="Make CUPS" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-27T09:13:00+02:00","datePublished":"2024-09-27T00:00:00+02:00","description":"Grosses Failles, grosse panique, petits impacts","headline":"Make CUPS","image":"https://mafilus.github.io/assets/img/blog/impr.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://mafilus.github.io/diaries/2024-09-27-make-cups/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/diaries/2024-09-27-make-cups/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2024-09-27T09:24:30+02:00","datePublished":"2024-09-27T00:00:00+02:00","description":"Grosses Failles, grosse panique, petits impacts","headline":"Make CUPS","image":"https://mafilus.github.io/assets/img/blog/impr.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://mafilus.github.io/diaries/2024-09-27-make-cups/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/diaries/2024-09-27-make-cups/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -122,7 +122,7 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
   w._search = {
     DATA_URL: '/assets/sitedata.json?no-cache',
     STORAGE_KEY: 'mini-search/',
-    INDEX_KEY: 'index--2024-09-27T09:15:07+02:00',
+    INDEX_KEY: 'index--2024-09-27T09:24:48+02:00',
   };
   w._clapButton = true;
 }(window);</script>
@@ -295,7 +295,7 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
 
 <h2 id="la-vulnérabilité">La vulnérabilité</h2>
 
-<p>La vulnérabilité a été postée par Simone Margaritelli dans <a href="https://www.evilsocket.net/2024/09/26/Attacking-UNIX-systems-via-CUPS-Part-I/">une première partie</a>. Il y aura certainement d’autres parties à l’avenir. Les vulnérabilités proviennent de CUPS, le service de gestion d’impression sur de nombreux systèmes UNIX like comme GNU/Linux, possiblement ChromeOS, des *BSD et les systèmes d’exploitation d’Apple. Les vulnérabilités permettent à un acteur malveillant de prendre le contrôle de l’ordinateur à distance. Les pré-requis nécessitent d’accéder au service CUPS sans avoir besoin d’être authentifié. L’objectif est de remplacer/installer les drivers d’impression et donc de changer les URL d’impression IPP. Une fois l’URL malveillante intégré au service CUPS, un service IPP malveillant va concevoir un fichier de type PPD (PostScript Printer Description) avec le paramètre FoomaticRIPCommandLine qui sera une ligne de commande exécutée par le service d’impression. Quand CUPS va lire le fichier PPD, il va donc exécuter la ligne de commande dans FoomaticRIPCommandLine pour chaque travail d’impression… Ceci n’est pas un bug, ceci est une fonctionnalité liée au PPD… Une fonctionnalité qui est très dangereuse.</p>
+<p>La vulnérabilité a été postée par Simone Margaritelli dans <a href="https://www.evilsocket.net/2024/09/26/Attacking-UNIX-systems-via-CUPS-Part-I/">une première partie</a>. Il y aura certainement d’autres parties à l’avenir. Les vulnérabilités proviennent de CUPS, le service de gestion d’impression sur de nombreux systèmes UNIX like comme GNU/Linux, possiblement ChromeOS, des *BSD et les systèmes d’exploitation d’Apple. Les vulnérabilités permettent à un acteur malveillant de prendre le contrôle de l’ordinateur à distance. Les pré-requis nécessitent d’accéder au service CUPS sans avoir besoin d’être authentifié. L’objectif est de remplacer/installer les drivers d’impression et donc de changer les URL d’impression IPP. Une fois l’URL malveillante intégrée au service CUPS, un service IPP malveillant va concevoir un fichier de type PPD (PostScript Printer Description) avec le paramètre FoomaticRIPCommandLine qui sera une ligne de commande exécutée par le service d’impression. Quand CUPS va lire le fichier PPD, il va donc exécuter la ligne de commande dans FoomaticRIPCommandLine pour chaque travail d’impression… Ceci n’est pas un bug, ceci est une fonctionnalité liée au PPD… Une fonctionnalité qui est très dangereuse.</p>
 
 <h2 id="dans-la-vrai-vie">Dans la vrai vie</h2>
 
