@@ -1,5 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fr"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://mafilus.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafilus.github.io/" rel="alternate" type="text/html" hreflang="fr" /><updated>2024-09-27T09:24:48+02:00</updated><id>https://mafilus.github.io/feed.xml</id><title type="html">Mafilus Diaries</title><subtitle>Journeaux de Mafilus. Orienté CyberSec.
-</subtitle><author><name>Mafilus Network</name><email>&lt;mafilus@localhost.localdomain&gt;</email></author><entry><title type="html">Make CUPS</title><link href="https://mafilus.github.io/diaries/2024-09-27-make-cups/" rel="alternate" type="text/html" title="Make CUPS" /><published>2024-09-27T00:00:00+02:00</published><updated>2024-09-27T09:24:30+02:00</updated><id>https://mafilus.github.io/diaries/make-cups</id><content type="html" xml:base="https://mafilus.github.io/diaries/2024-09-27-make-cups/"><![CDATA[<p>Le 23 septembre 2024, Simone Margaritelli (aka evilsocket) <a href="https://threadreaderapp.com/thread/1838169889330135132.html">écrit un message sur une vulnérabilité de type exécution à distance sur des systèmes apriori sur GNU/Linux</a>. Il fait part de son avis sur la gestion désastreuse entre les développeurs et la vulnérabilité découverte. En effet, pour lui, le vrai challenge de cette découverte a été la prise en compte de la vulnérabilité par les développeurs. Alors que des médias populaires ont émis des avis sans connaître le fond, qu’en est-il réellement ?</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fr"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://mafilus.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafilus.github.io/" rel="alternate" type="text/html" hreflang="fr" /><updated>2025-01-15T05:05:59+01:00</updated><id>https://mafilus.github.io/feed.xml</id><title type="html">Mafilus Diaries</title><subtitle>Journeaux de Mafilus. Orienté CyberSec.
+</subtitle><author><name>Mafilus Network</name><email>&lt;mafilus@localhost.localdomain&gt;</email></author><entry><title type="html">SGF</title><link href="https://mafilus.github.io/diaries/2025-01-15-sgf/" rel="alternate" type="text/html" title="SGF" /><published>2025-01-15T00:00:00+01:00</published><updated>2025-01-15T05:04:51+01:00</updated><id>https://mafilus.github.io/diaries/sgf</id><content type="html" xml:base="https://mafilus.github.io/diaries/2025-01-15-sgf/"><![CDATA[<p>Avez-vous déjà entendu parler des “SGF” en informatique ? En général, la réponse est “non”. Peut-être que la réponse est “oui”, mais sachez que vous êtes minoritaires. Et il y a une bonne raison à cela.</p>
+
+<h2 id="le-contexte">Le contexte</h2>
+
+<p>Si vous recherchez le terme “SGF” sur Google, vous ne trouverez pas directement la définition ; il faut passer par le mot-clé “informatique”. Les premiers résultats indiquent que “SGF” signifie “système de fichiers”. Curieux de cette appellation, vous vous dirigez vers la page <a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_de_fichiers">Wikipédia</a> en question. Et là, vous apprenez que “SGF” est le diminutif de “système de gestionnaire de fichiers” et signifiait “système de fichiers”.</p>
+
+<p><em>Ma réaction a été abracadabrantesque :</em></p>
+
+<blockquote>
+  <p><strong>WTF</strong>.</p>
+</blockquote>
+
+<p>Pour comprendre :</p>
+
+<ul>
+  <li>Un <strong>“système de fichiers”</strong> est le formatage d’un périphérique de stockage afin d’y établir une organisation permettant son exploitation. Dans la plupart des cas, le système de fichiers établit un format de données pour les fichiers. Il y définit la structure permettant de stocker et d’accéder aux fichiers. On les retrouve sur les disques dur, clef USB, etc.</li>
+  <li>Un <strong>“gestionnaire de fichiers”</strong> est une application qui permet de <a href="https://fr.wikipedia.org/wiki/Gestionnaire_de_fichiers">naviguer</a> dans les systèmes de fichiers, de créer, déplacer ou supprimer des fichiers et des dossiers.</li>
+</ul>
+
+<p>Vous comprendrez que “système de gestionnaire de fichiers” relève d’une <strong>fusion</strong> des deux termes qui n’ont rien à voir au niveau logiciel.</p>
+
+<h2 id="nous-allons-creuser-pour-trouver">Nous allons creuser pour trouver</h2>
+
+<p>D’où provient l’appellation <strong>SGF</strong> ? Heureusement, <strong>Wikipédia</strong> intègre un <strong>gestionnaire de versions</strong> capable de nous afficher les différences de chaque modification apportée à ses articles. En cherchant, nous découvrons que cette modification a été effectuée par <strong>“Jerome Charles Potts”</strong>. Je vous retransmets son commentaire :</p>
+
+<blockquote>
+  <p><em>Nous, les vieux de l’informatique française, on dit SGF (gestionnaire).</em></p>
+</blockquote>
+
+<p>Merci Jéjé pour tes explications <strong>concises</strong>. Peut-être que la source que Jéjé a donnée peut nous en apprendre davantage sur l’origine du terme. Avec le lien externe du “SGF”, vous trouverez l’intitulé : “système de fichiers” (sans le gestionnaire). Sacré petit filou notre Jéjé ! Il nous a sorti l’argument d’autorité du <strong>“nous, les vieux de l’informatique française”</strong>.</p>
+
+<p><strong>Permets-moi de te contredire Jéjé. Je pense que ce terme n’est pas rigoureusement acceptable.</strong></p>
+
+<h2 id="les-autres-sites-web">Les autres sites Web</h2>
+
+<p>C’est étrange (ou pas). Les autres sites web faisant référence à <em>SGF</em> semblent simplement reprendre des <strong>définitions reprises de Wikipédia</strong>. Beaucoup de ces sites sont des cours destinés au <em>Supérieur</em> ou <em>Secondaire</em>. Il a fallu aller dans les derniers référencements de Google pour y retrouver le terme dans un document de <strong>2001</strong>, avant l’intervention de <strong>Jéjé</strong>.</p>
+
+<p>Note spéciale au site web <a href="https://www.lalanguefrancaise.com/dictionnaire/definition/sgf">languefrancaise.com</a>, qui nous affiche sans sourciller une définition de <strong>“système de fichiers”</strong> accompagnée d’un exemple <strong>approximatif généré par l’IA</strong>. Mais le pire, c’est qu’il inclut de véritables exemples qui n’ont strictement rien à voir avec l’informatique…</p>
+
+<h2 id="sgf-quest-ce-que-cest-">“SGF” qu’est-ce que c’est ?</h2>
+
+<p>Dans les recherches via Google, c’est finalement <a href="http://shtroumbiniouf.free.fr/CoursInfo/Systeme2/Cours/SGFUnix/FileSystems/ext2/ext2.html#DebutPage">le site web Free de Shtroumbiniouf</a> qui me met la puce à l’oreille. Le site web indique :</p>
+
+<blockquote>
+  <p><em>Afin d’atténuer ces deux inconvénients, d’une part le SGF (plus précisément VFS)</em></p>
+</blockquote>
+
+<p>Le “SGF” serait ce que l’on appelle en anglais le “VFS” (Virtual File System). Dans le contexte du système d’exploitation Linux, le <strong>VFS</strong> est un composant <strong>(du code)</strong> qui permet au niveau physique/virtuelle une <em>abstraction</em> représentant l’organisation sous forme de fichiers et de dossiers. Cette <em>abstraction</em> représente les fichiers et dossiers, indépendamment de la manière dont ils sont physiquement stockés. Le terme générique du “Virtual File System” de Linux peut être dénommé comme une majeure partie du “File Management” dans les systèmes d’exploitation.</p>
+
+<p>Voilà, nous avons résolu notre enquête. SGF signifie “système de fichiers virtuel” sous Linux.</p>
+
+<p>On a terminé.</p>
+
+<blockquote>
+  <p><em>J’ai un doute. Avons-nous vraiment terminé ?</em></p>
+</blockquote>
+
+<blockquote>
+  <p><em>Ai-je bien exploré toutes les possibilités ?</em></p>
+</blockquote>
+
+<blockquote>
+  <p><em>Il y a quelque chose en moi.</em></p>
+</blockquote>
+
+<blockquote>
+  <p><em>La réponse, je la sens, mais elle n’est pas là.</em></p>
+</blockquote>
+
+<blockquote>
+  <p><em>Et si ?</em></p>
+</blockquote>
+
+<blockquote>
+  <p><em>Et si ?</em></p>
+</blockquote>
+
+<blockquote>
+  <p><em>ET SI ?</em></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>ET SI JE METTAIS “SYSTÈME DE GESTIONNAIRE DE FICHIERS” EN ANGLAIS !</strong></p>
+</blockquote>
+
+<p>*Google le traduit ainsi :</p>
+
+<blockquote>
+  <p>“File Management System”.</p>
+</blockquote>
+
+<p>Je répète : <strong>“File Management System”</strong>. La première occurrence sur Google nous renvoie vers des contenus marketing qui indiquent que <strong>“File Management System”</strong> est approximativement la même chose que “Document Management System”. Or, “Document Management System” se traduit en français par <a href="https://fr.wikipedia.org/wiki/Gestion_%C3%A9lectronique_des_documents">“Gestion Électronique des Documents”</a>, ce qui n’a rien à voir avec un système de fichiers.</p>
+
+<p>Il ne manquerait plus que l’on enlève le “System” pour y trouver une autre définition. <em>Insérer une frimousse de sourire narquois</em></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Cette histoire de <strong>“SGF”</strong> n’est pas claire. On pourrait confondre ce terme avec <strong>un système de fichiers, un gestionnaire de fichiers, le système de fichiers virtuel et la gestion électronique des documents</strong>. Il existe même une mention de : <strong>“système de gestion de fichiers”</strong>. En soi, si vous utilisez le <strong>“SGF”</strong> pour désigner l’un des quatre termes précédents, vous n’avez pas tort. Ou alors, ce terme est une <strong>fiction</strong>. 
+Une preuve ? À l’heure actuelle, aucune <a href="https://www.ibm.com/docs/fr/i/7.5?topic=concepts-files-file-systems">entreprise du secteur numérique</a> n’emploie “système de gestionnaire de fichiers” dans sa documentation, alors que “système de fichiers” y figure fréquemment. Ce terme n’apparaît que sur des sites web liés à des environnements académiques.</p>
+
+<p>“SGF” n’est pas standard. Le terme “système de gestionnaire de fichiers” est une fiction de masse, trop floue dans la définition pour être employable à bon escient.</p>]]></content><author><name>Mafilus Network</name><email>&lt;mafilus@localhost.localdomain&gt;</email></author><category term="diaries" /><summary type="html"><![CDATA[FS -> SF -> SGF -> FMS -> DMS -> GED]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://mafilus.github.io/assets/img/blog/sgf.png" /><media:content medium="image" url="https://mafilus.github.io/assets/img/blog/sgf.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Make CUPS</title><link href="https://mafilus.github.io/diaries/2024-09-27-make-cups/" rel="alternate" type="text/html" title="Make CUPS" /><published>2024-09-27T00:00:00+02:00</published><updated>2024-09-27T09:24:30+02:00</updated><id>https://mafilus.github.io/diaries/make-cups</id><content type="html" xml:base="https://mafilus.github.io/diaries/2024-09-27-make-cups/"><![CDATA[<p>Le 23 septembre 2024, Simone Margaritelli (aka evilsocket) <a href="https://threadreaderapp.com/thread/1838169889330135132.html">écrit un message sur une vulnérabilité de type exécution à distance sur des systèmes apriori sur GNU/Linux</a>. Il fait part de son avis sur la gestion désastreuse entre les développeurs et la vulnérabilité découverte. En effet, pour lui, le vrai challenge de cette découverte a été la prise en compte de la vulnérabilité par les développeurs. Alors que des médias populaires ont émis des avis sans connaître le fond, qu’en est-il réellement ?</p>
 
 <h2 id="la-vulnérabilité">La vulnérabilité</h2>
 
