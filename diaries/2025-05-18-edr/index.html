@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="fr"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v9.2.1 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Endpoint Detection and Response (EDR) | Mafilus Diaries</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Endpoint Detection and Response (EDR)" />
+<meta name="author" content="Mafilus Network" />
+<meta property="og:locale" content="fr" />
+<meta name="description" content="L’Endpoint Detection and Response (EDR) est une solution de sécurité informatique dont l’objectif est de détecter et de répondre aux menaces ciblant les postes de travail et serveurs. Ces menaces peuvent inclure des logiciels malveillants, des attaques sur des services exposés en réseau, des actions d’utilisateurs malveillants, etc. Cet article vise à proposer une première approche du fonctionnement des EDR." />
+<meta property="og:description" content="L’Endpoint Detection and Response (EDR) est une solution de sécurité informatique dont l’objectif est de détecter et de répondre aux menaces ciblant les postes de travail et serveurs. Ces menaces peuvent inclure des logiciels malveillants, des attaques sur des services exposés en réseau, des actions d’utilisateurs malveillants, etc. Cet article vise à proposer une première approche du fonctionnement des EDR." />
+<link rel="canonical" href="https://mafilus.github.io/diaries/2025-05-18-edr/" />
+<meta property="og:url" content="https://mafilus.github.io/diaries/2025-05-18-edr/" />
+<meta property="og:site_name" content="Mafilus Diaries" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-05-18T00:00:00+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Endpoint Detection and Response (EDR)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2025-05-18T11:46:55+02:00","datePublished":"2025-05-18T00:00:00+02:00","description":"L’Endpoint Detection and Response (EDR) est une solution de sécurité informatique dont l’objectif est de détecter et de répondre aux menaces ciblant les postes de travail et serveurs. Ces menaces peuvent inclure des logiciels malveillants, des attaques sur des services exposés en réseau, des actions d’utilisateurs malveillants, etc. Cet article vise à proposer une première approche du fonctionnement des EDR.","headline":"Endpoint Detection and Response (EDR)","mainEntityOfPage":{"@type":"WebPage","@id":"https://mafilus.github.io/diaries/2025-05-18-edr/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/diaries/2025-05-18-edr/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="cybersec">
+  
+
+
+
+  <meta name="color-scheme" content="dark light">
+
+
+
+  <meta name="theme-color" content="rgb(25,55,71)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mafilus Diaries">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Mafilus Diaries">
+
+<meta name="generator" content="Hydejack v9.2.1" />
+
+
+<link rel="alternate" href="https://mafilus.github.io/diaries/2025-05-18-edr/" hreflang="fr">
+
+<link type="application/atom+xml" rel="alternate" href="https://mafilus.github.io/feed.xml" title="Mafilus Diaries" />
+
+
+<link rel="shortcut icon"    href="/assets/img/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/img/icons/logo.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+  
+  <link rel="dns-prefetch" href="/assets/bower_components/katex/dist/katex.min.css" id="_katexPreload">
+  <noscript><link rel="stylesheet" href="/assets/bower_components/katex/dist/katex.min.css"></noscript>
+
+
+
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2025-05-18T11:48:28+02:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.1.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.5);--accent-color-highlight: rgba(79, 177, 186, 0.1);--accent-color-darkened: rgb(63.8602040816, 154.5602040816, 162.8897959184);--theme-color: rgb(25,55,71);--dark-mode-body-bg: hsl(200.8695652174, 5.9895833333%, 17.5%);--dark-mode-border-color: hsl(200.8695652174, 5.9895833333%, 22.5%)}
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+
+</head>
+
+<body class="no-break-layout">
+  
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Go Go:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/diaries/">diaries</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2025-05-18-edr</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+<article id="post-diaries-edr" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Endpoint Detection and Response (EDR)
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2025-05-18T00:00:00+02:00">18 May 2025</time> in <span>Diaries</span> 
+      </span>
+      
+        
+          
+          
+          
+        
+      
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    <p>L’<strong>Endpoint Detection and Response</strong> (<strong>EDR</strong>) est une <em>solution de sécurité informatique</em> dont l’objectif est de <strong>détecter</strong> et de <strong>répondre</strong> <em>aux menaces ciblant les postes de travail et serveurs</em>. Ces menaces peuvent inclure des <strong>logiciels malveillants</strong>, des <strong>attaques sur des services exposés en réseau</strong>, des <strong>actions d’utilisateurs malveillants</strong>, etc. Cet article vise à proposer <em>une première approche</em> du <em>fonctionnement des EDR</em>.</p>
+
+<h2 id="avant-propos">Avant-propos</h2>
+
+<p>Tous les <strong>EDR</strong> ne se valent pas, et leur fonctionnement différe selon l’éditeur. Il existe toutefois un <strong>état de l’art</strong> auquel toute solution EDR sérieuse devrait se conformer. Pourtant, certains logiciels comme <strong>Wazuh</strong> ou <strong>OpenEDR</strong>, bien que se revendiquant comme <strong>EDR</strong>, ne sont pas suffisamment matures dans leur distribution pour être considérés comme tels.
+Anecdote : les développeurs de <strong>Wazuh</strong> ont reclassé leur logiciel comme <strong>SIEM</strong> (outil de corrélation et d’agrégation d’événements de sécurité). Quant à <em>OpenEDR</em>, il est loin d’être réellement “open” : il nécessite un logiciel serveur (payant et fermé) pour activer toutes ses capacités de détection. La documentation évoque une intégration avec <em>Filebeat vers Elasticsearch</em>, mais celle-ci est incorrecte à cause du format JSON multi-ligne non pris en charge (une obscure configuration existe). Enfin, le projet n’a pas reçu de <em>mise à jour</em> significative <em>depuis</em> <strong>trois ans</strong>. Cela illustre la fragilité de certains projets <strong>EDR</strong> open source.</p>
+
+<h2 id="un-edr-est-un-antivirus">Un EDR est un antivirus</h2>
+
+<p>On peut aisément dire qu’un <strong>EDR</strong> est un <strong>antivirus</strong>, mais l’inverse n’est pas vrai. Cette affirmation peut paraître tranchée, mais la <em>majorité</em> des fonctionnalités de <strong>détection</strong> de <em>logiciels malveillants</em> sont <em>communes</em> aux deux. Certains éditeurs ne parlent plus d’« antivirus », mais de <strong>EPP</strong> (Endpoint Protection Platform pour une nouvelle génération d’antivirus). Au fil du temps, les antivirus ont évolué, passant du simple scan de signatures à des techniques d’analyse comportementale, heuristique et de réputation. Par exemple, ClamAV, un antivirus open source, repose exclusivement sur les signatures, tandis que des logiciels comme Avast, AVG, ESET, Bitdefender ou Kaspersky intègrent pare-feux, surveillance des fichiers utilisateurs, analyse comportementale et envoi d’échantillons pour analyse distante.</p>
+
+<h2 id="la-détection-par-signature">La détection par signature</h2>
+
+<p>Un <strong>antivirus</strong> repose d’abord sur un <strong>scanner de signatures</strong>. Ces <strong>signatures</strong> sont des règles de détection définies sur des séquences d’octets caractéristiques. Le <strong>scanner</strong> analyse les fichiers du système à la recherche de ces motifs. Voici un exemple de règle au format <strong>YARA</strong> :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rule Windows_Trojan_CobaltStrike_c851687a {
+    meta:
+        author = "Elastic Security"
+        id = "c851687a-aac6-43e7-a0b6-6aed36dcf12e"
+        fingerprint = "70224e28a223d09f2211048936beb9e2d31c0312c97a80e22c85e445f1937c10"
+        creation_date = "2021-03-23"
+        last_modified = "2021-08-23"
+        description = "Identifies UAC Bypass module from Cobalt Strike"
+        threat_name = "Windows.Trojan.CobaltStrike"
+        severity = 100
+        arch_context = "x86"
+        scan_context = "file, memory"
+        license = "Elastic License v2"
+        os = "windows"
+    strings:
+        $a1 = "bypassuac.dll" ascii fullword
+        $a2 = "bypassuac.x64.dll" ascii fullword
+        $a3 = "\\\\.\\pipe\\bypassuac" ascii fullword
+        $b1 = "\\System32\\sysprep\\sysprep.exe" wide fullword
+        $b2 = "[-] Could not write temp DLL to '%S'" ascii fullword
+        $b3 = "[*] Cleanup successful" ascii fullword
+        $b4 = "\\System32\\cliconfg.exe" wide fullword
+        $b5 = "\\System32\\eventvwr.exe" wide fullword
+        $b6 = "[-] %S ran too long. Could not terminate the process." ascii fullword
+        $b7 = "[*] Wrote hijack DLL to '%S'" ascii fullword
+        $b8 = "\\System32\\sysprep\\" wide fullword
+        $b9 = "[-] COM initialization failed." ascii fullword
+        $b10 = "[-] Privileged file copy failed: %S" ascii fullword
+        $b11 = "[-] Failed to start %S: %d" ascii fullword
+        $b12 = "ReflectiveLoader"
+        $b13 = "[-] '%S' exists in DLL hijack location." ascii fullword
+        $b14 = "[-] Cleanup failed. Remove: %S" ascii fullword
+        $b15 = "[+] %S ran and exited." ascii fullword
+        $b16 = "[+] Privileged file copy success! %S" ascii fullword
+    condition:
+        2 of ($a*) or 10 of ($b*)
+}
+</code></pre></div></div>
+
+<p>Créée par la société <strong>Elastic</strong>, cette <strong>règle</strong> détecte un <em>cheval de Troie</em> (ici <em>Cobalt Strike</em>, utilisé pour prendre le <em>contrôle à distance</em> d’un ordinateur). Elle s’active si au moins <em>deux chaînes</em> comme “bypassuac.dll”, “bypassuac.x64.dll” ou “.\pipe\bypassuac” sont présentes. L’attaque visée ici est un <em>bypass UAC</em>, c’est-à-dire le contournement du User Account Control, une fonctionnalité qui empêche les processus de bénéficier automatiquement de privilèges administrateurs. En contournant cette protection, un malware peut élever ses privilèges sans autorisation utilisateur.</p>
+
+<p>Dans la section “condition”, la syntaxe <code class="language-plaintext highlighter-rouge">2 of ($a*)</code> <em>signifie qu’au moins deux chaînes définies par les variables commençant par $a doivent être détectées</em>. <code class="language-plaintext highlighter-rouge">10 of ($b*)</code> en exige dix parmi celles de <code class="language-plaintext highlighter-rouge">$b</code>. Le <code class="language-plaintext highlighter-rouge">or</code> signifie qu’au moins un de ces deux groupes doit correspondre. Cette logique permet une détection souple et puissante, caractéristique des moteurs de signature modernes.</p>
+
+<p>Avec cette compréhension, vous réalisez qu’une signature est une règle codifiée, téléchargée régulièrement par l’antivirus depuis les serveurs de l’éditeur. Ce dernier doit donc rester en veille constante pour identifier de nouvelles menaces et enrichir sa base. Plus les moyens de recherche d’un éditeur sont importants, plus la base de signatures est complète, ce qui améliore l’efficacité de la protection. C’est pourquoi certains antivirus envoient automatiquement à leur éditeur des fichiers inconnus, souvent sans consentement explicite de l’utilisateur.</p>
+
+<h2 id="lanalyse-de-lentropie">L’analyse de l’entropie</h2>
+
+<p>L’<strong>entropie de Shannon</strong> : une <strong>mesure statistique</strong> qui attribue un score entre <strong>0</strong> et <strong>8</strong> à un bloc de données. Plus ce score est élevé, plus le contenu est <strong>aléatoire</strong>. Ce qui est souvent un indice de chiffrement ou de compression, le programme malveillant camoufle ses fonctionnalités maîtresses au sein du programme, un score élevé est potentiellement révélateur.</p>
+
+<h2 id="lanalyse-sandboxing-ou-bac-à-sable">L’analyse sandboxing ou bac à sable</h2>
+
+<p>Il faut différencier la <strong>sandbox</strong> de l’anti-virus local et celle qui est employée chez l’éditeur. Au niveau local, la sandbox est une <strong>analyse sur un laps de temps court</strong> de l’<strong>exécution du programme</strong>. La sandbox simule sans pour autant donner un accès directement au système. Pendant cette analyse, l’antivirus va renforcer son <strong>analyse comportementale</strong>.</p>
+
+<h2 id="les-programmes-de-confiance">Les programmes de confiance</h2>
+
+<p>Un <strong>programme de confiance</strong> est un binaire dont l’origine est garantie cryptographiquement. On peut parler de réputation du logiciel. Cela repose sur une infrastructure à clés publiques (<strong>PKI</strong>). Un fichier <strong>signé</strong> contient une signature cryptographique qui prouve que son émetteur détient une clé privée correspondant à une <strong>autorité reconnue</strong>. Ce système est utilisé par les <strong>éditeurs</strong> pour <em>évaluer automatiquement la confiance d’un programme</em>, à travers le <strong>manifest</strong>.</p>
+
+<h2 id="lanalyse-déchantillon">L’analyse d’échantillon</h2>
+
+<p>L’<strong>analyse d’échantillons</strong> se déroule généralement <em>chez</em> <strong>l’éditeur de la solution de sécurité</strong>. Elle est appelée <em>analyse heuristique</em>, <em>sandboxing</em>, <em>cloud</em>, <em>IA</em>, etc. En réalité, <em>chaque éditeur déploie ses propres techniques</em> : analyse automatisée, manuelle, ou hybride (avec escalade humaine si l’analyse automatique est incertaine).</p>
+
+<p>Parmi les techniques utilisées, l’<em>analyse heuristique</em> et le <em>sandboxing</em> sont les plus établies, bien que pas toujours les plus efficaces. L’heuristique s’appuie sur l’<strong>analyse comportementale</strong>, parfois via des modèles de graphes. Lié avec le <em>sandboxing</em> consiste à exécuter l’échantillon dans un <em>environnement isolé</em> pour observer son comportement. Contrairement à la sandbox de l’antivirus, l’environnement simulé est beaucoup plus large et beaucoup long. Certains éditeurs intègrent de l’<em>intelligence artificielle</em> pour juger du caractère malveillant, ou encore utilisent des techniques de <em>rétro-ingénierie</em> combinées à des <em>IA génératives</em> pour analyser le code.
+Certaines de ces analyses sont difficiles à reproduire localement (ex : IA).</p>
+
+<p>Une fois l’analyse terminée, si l’échantillon est jugé malveillant, l’éditeur crée une signature. Si une signature ne peut être générée, une détection comportementale peut être mise en place à la place.</p>
+
+<h2 id="lanalyse-comportementale">L’analyse comportementale</h2>
+
+<p>L’<strong>analyse comportementale</strong> repose sur l’<strong>observation de l’activité du système d’exploitation</strong>. Le système fournit des services qui permettent de manipuler fichiers, réseau, privilèges, etc. Ces services diffèrent selon l’OS (Windows, Linux, macOS), et une connaissance approfondie du système est indispensable.</p>
+
+<p>Sous Windows, comprendre les processus et la mémoire est essentiel. Un processus est une entité qui isole les tâches, la mémoire et les privilèges. Il ne peut lire la mémoire d’un autre processus sans passer par des mécanismes système. De même, il ne peut utiliser directement toutes les instructions du processeur.</p>
+
+<p>Les <strong>antivirus</strong> doivent pouvoir <strong>inspecter</strong> la <strong>mémoire</strong> des processus. Pour cela, ils utilisent à la fois des <strong>mécanismes offerts par l’OS</strong> et des techniques <strong>personnalisées</strong>, parfois <em>intrusives</em>. Certains vont jusqu’à modifier à la volée des fonctions critiques du système. Une pratique que <strong>Microsoft</strong> tente d’endiguer, mais qui subsiste, parfois au prix de graves dysfonctionnements (cf. l’incident <strong>CrowdStrike</strong> ayant causé un <em>plantage massif</em>).</p>
+
+<p>Deux composants principaux assurent cette analyse :</p>
+
+<p>Une <strong>bibliothèque</strong> (le fichier .DLL) injectée dans chaque processus, chargée d’intercepter certains appels système. Sur Windows, <code class="language-plaintext highlighter-rouge">ntdll.dll</code> gère les appels système (<strong>syscalls</strong>). L’antivirus <strong>détourne</strong> ces appels vers son propre code pour <strong>analyse</strong>.</p>
+
+<p>Un <strong>driver</strong> (pilote, le fichier .SYS) tournant dans le <strong>noyau</strong>, ayant un accès complet au système. Il <strong>surveille</strong> des événements comme la création de processus ou le chargement de bibliothèques via des <em>fonctions natives de Windows</em> (ex : PsSetCreateProcessNotifyRoutineEx, PsSetLoadImageNotifyRoutine).</p>
+
+<p>Certaines solutions vont encore plus loin, en installant un <strong>hyperviseur</strong> via le processeur pour contrôler les appels système noyau (ex : Avast avec KiSystemCall64 intercepté via une opération VM-exit).</p>
+
+<h2 id="la-protection-anti-ransomware">La protection anti-ransomware</h2>
+
+<p>La protection <strong>anti-ransomware</strong> varie selon les éditeurs, mais repose souvent sur deux techniques : l’<strong>analyse des fichiers sensibles</strong> et le <strong>honeypot</strong>. Parfois, une stratégie de <strong>sauvegarde automatique</strong> complète le tout.</p>
+
+<p>Le système <strong>surveille les opérations sur des fichiers</strong> critiques (images, vidéos, documents, etc.), mais rarement sur des fichiers techniques (ex. .json). Le driver de <strong>l’antivirus</strong> utilise souvent des <strong>minifilters</strong> pour notifier les accès. Si un processus suspect tente de modifier ces fichiers, l’antivirus peut <strong>bloquer</strong> l’opération ou <strong>demander une validation</strong> utilisateur.</p>
+
+<p>Le <strong>honeypot</strong>, ou “pot de miel”, place volontairement de faux fichiers appâts (on attrape un ours avec un pot de miel). Toute tentative de modification déclenche une <strong>alerte</strong> et une <strong>réponse</strong> : <em>isolation du processus</em>, <em>restauration des fichiers</em>, etc. Ces fichiers sont <strong>invisibles aux programmes de confiance</strong>. Les <em>composants comportementaux</em> sont ici essentiels pour différencier une menace d’un comportement légitime.</p>
+
+<h2 id="le-pare-feu">Le pare-feu</h2>
+
+<p>Certains <strong>antivirus</strong> intègrent une <strong>analyse réseau</strong>, utilisant l’infrastructure de filtrage natif de Windows via Windows Filtering Platform (WFP). Ce module noyau permet, grâce à des fonctions comme FwpmFilterAdd, de <strong>bloquer</strong> ou d’<strong>autoriser</strong> des paquets réseau, <em>sortants</em> ou <em>entrants</em>, selon les règles de l’éditeur.</p>
+
+<h2 id="composants-additionnels">Composants additionnels</h2>
+
+<p>De nombreux <strong>éditeurs commerciaux</strong> ajoutent des fonctionnalités complémentaires : <strong>coffres-forts</strong> à mots de passe, <strong>VPN</strong>, <strong>navigation sécurisée</strong>, etc. Bien qu’utiles pour la vie privée, ces fonctions dépassent le cadre de la réponse aux logiciels malveillants. Elles relèvent davantage de la prévention que de la détection ou de la correction.</p>
+
+<hr />
+
+<h2 id="en-quoi-un-edr-va-plus-loin">En quoi un EDR va plus loin</h2>
+
+<p>À ce niveau, un <strong>EDR</strong> possède les mêmes <em>briques</em> techniques qu’un <strong>antivirus</strong>. Mais il va <em>plus loin</em> : il analyse les <strong>journaux d’événements système</strong>, les <strong>actions utilisateur</strong>, les <strong>modifications système</strong>, et <strong>centralise</strong> toutes ces données sur un serveur d’administration.</p>
+
+<h2 id="lanalyse-en-mémoire-vive">L’analyse en mémoire vive</h2>
+
+<p>L’analyse de <strong>signatures</strong> par un <strong>EDR</strong> peut également se faire en <strong>mémoire vive</strong>, ce qui permet de <strong>détecter</strong> des charges utiles injectées ou des malwares sans fichier (<strong>fileless malware</strong>) actifs dans les processus.</p>
+
+<h2 id="lanalyse-des-événements">L’analyse des événements</h2>
+
+<p>L’<strong>EDR</strong> lit les <strong>journaux d’événements</strong> pour <strong>détecter des comportements suspects</strong>. Par exemple, une série d’échecs d’authentification (1000 en 10 secondes) sur un compte administrateur indique une <strong>attaque par force brute</strong>. L’EDR peut alors <em>bloquer l’IP</em> source via le pare-feu.</p>
+
+<h2 id="lanalyse-de-lutilisateur">L’analyse de l’utilisateur</h2>
+
+<p>Si une menace est liée à <strong>l’activité d’un utilisateur</strong>, l’EDR peut fermer sa session, <strong>bloquer</strong> son accès réseau, voire désactiver son compte temporairement. Cela permet d’<strong>isoler</strong> la source de l’attaque de manière proactive.</p>
+
+<h2 id="lanalyse-du-système">L’analyse du système</h2>
+
+<p>L’<strong>EDR</strong> détecte les <strong>modifications suspectes de configuration système</strong> (comme le registre Windows). Il <strong>journalise</strong> aussi les opérations sur les fichiers, les créations de processus, etc., enrichissant ainsi l’investigation en cas d’incident.</p>
+
+<h2 id="le-serveur-edr">Le serveur EDR</h2>
+
+<p>Le cœur de la solution <strong>EDR</strong> est souvent son serveur centralisé. Il <strong>collecte et corrèle les événements</strong>, permettant aux équipes <strong>SOC</strong> (Security Operations Center) de mener des <strong>investigations</strong>. Ce serveur peut être intégré à un <strong>SIEM</strong> pour générer des alertes, enrichir la supervision, ou automatiser certaines réponses. Il permet également de déployer, ajuster ou désactiver les règles de <strong>détection à distance</strong>. Une autres des fonctionnalités permet le traçage des événements passées. Le serveur EDR conserve un historique permettant une <strong>analyse rétrospective</strong>. L’analyste est en mesure d’obtenir <em>l’activité du poste</em>. Le serveur peut être capable de corréler une attaque sur divers postes (endpoint) et donner des solutions de <strong>remédiation automatique</strong> : (isolement du réseau, suppression de fichier malveillant, restauration de fichier si sauvegardes)</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>La <strong>télémétrie</strong> est essentielle à un <strong>EDR</strong>. Sans détection, il n’y a pas de réponse. Trop de détection et les équipes de <strong>SOC</strong> se noieront sur des investigations inutiles. La difficulté des solutions de sécurité basées sur la détection d’attaque est d’éviter qu’une alerte se déclenche là où il n’existe aucun incident. Les éditeurs de solution de sécurité ont pour objectif d’éviter le <strong>faux positif</strong>. On se retrouve avec un logiciel qui peut être décrié comme laxiste et autoritaire en même temps.</p>
+
+<hr />
+
+  
+</article>
+
+
+
+  <hr class="dingbat related mb6" />
+
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="https://avatars.githubusercontent.com/u/80053810?v=4"
+    srcset="https://avatars.githubusercontent.com/u/80053810?v=4 1x,https://avatars.githubusercontent.com/u/80053810?v=4 2x"
+    
+  
+  alt="Mafilus Network"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Je suis chercheur en cybersécurité. Actuellement au chômage, j’expérimente les différents domaines de la cybersécurité. Mes journées se tournent à la recherche en cybersécurité avec du développement applicatif notamment des outils, des services dans une multitude de piles logicielles, à implémenter des laboratoires de recherche sur diverses technologies et analyser des menaces. J’ai une sensibilité pour la gouvernance : gestion du risque. Je suis spécialisé dans les techniques de contournement de sécurité. Je suis un fin connaisseur des technologies liées aux mesures de sécurité.<br /><br />Niveau pro : j’ai fait de l’audit de pentest en mode red team, mais en contrat pentest, de l’investigation numérique. J’ai été formateur. J’ai fait des études en sysadmin et en réseau, j’ai fait des études en dev système. Pour l’anecdote, je n’avais pas mis un pied dans une école d’informatique que je savais écrire des daemons UNIX en C. Les professeurs que j’ai eu n’ont jamais écrit de daemons UNIX. “<em>insérer rire gras</em>”. Dans les faits, j’ai une bonne base de connaissance sur divers sujets.<br /><br />Niveau perso : j’aime les chats.</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/Mafilus" title="X / Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X / Twitter</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/mafilus" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Mes trucs</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/diaries/2025-01-15-sgf/" class="flip-title"><span>SGF</span></a>  <time class="faded fine" datetime="2025-01-15T00:00:00+01:00">15 Jan 2025</time></li>                        <li class="h4">  <a href="/diaries/2024-09-27-make-cups/" class="flip-title"><span>Make CUPS</span></a>  <time class="faded fine" datetime="2024-09-27T00:00:00+02:00">27 Sep 2024</time></li>                        <li class="h4">  <a href="/diaries/2024-09-22-fake-captcha/" class="flip-title"><span>Fake Captcha</span></a>  <time class="faded fine" datetime="2024-09-22T00:00:00+02:00">22 Sep 2024</time></li>            </ul></aside>
+
+  
+
+  
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© -39999 to 2024. All rights reserved.
+</small></p>
+  
+  
+    <nav class="legal"><small>
+    
+      
+      <a class="heading flip-title" href="/LICENCE/">LICENCE</a>
+      
+    
+    </small></nav>
+  
+    <p><small>Powered by <a class="external" href="https://hydejack.com/">Hydejack</a> v<span id="_version">9.2.1</span></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+
+
+
+
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/bg.jpeg)"></div>
+
+    <div class="sidebar-sticky">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/logo.png" class="avatar" alt="Mafilus Diaries" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Mafilus Diaries</h2></a>
+    
+    
+      <p class="">
+        Vous pouvez faire glisser le menu de gauche à droite
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/charlie/"
+          class="sidebar-nav-item "
+          
+        >
+          Où est charlie ?
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/diaries/"
+          class="sidebar-nav-item "
+          
+        >
+          Mes vampires diaries
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          Moi, moi... Moi!
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/Mafilus" title="X / Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X / Twitter</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/mafilus" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.1.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.1.js" nomodule defer></script>
+  
+
+  
+
+<!--<![endif]-->
+  <!--
+Code for integrating CloudFlare's email protection with Hydejack's single page app loading.
+-->
+<script>
+  document.getElementById('_pushState').addEventListener('hy-push-state-after', function (e) {
+    function e(e){
+      (console.error?console.error:console.log).call(console,e)
+    }
+
+    function t(e){
+      return l.innerHTML='<a href="'+e.replace(/"/g,"&quot;")+'"></a>',l.childNodes[0].getAttribute("href")
+    }
+
+    function r(e,t){
+      var r=e.substr(t,2);return parseInt(r,16)
+    }
+
+    function n(e,n){
+      for(var o="",c=r(e,n),a=n+2;a<e.length;a+=2){
+        var l=r(e,a)^c;
+        o+=String.fromCharCode(l)
+      }
+      return t(o)
+    }
+
+    var o="/cdn-cgi/l/email-protection#",
+        c=".__cf_email__",
+        a="data-cfemail",
+        l=document.createElement("div");
+
+    !function(){
+      for(var t=document.getElementsByTagName("a"),r=0;r<t.length;r++)
+        try{
+          var c=t[r],a=c.href.indexOf(o);
+          a>-1&&(c.href="mailto:"+n(c.href,a+o.length))
+        }catch(t){
+          e(t)
+        }
+    }(),
+    function(){
+      for(var t=document.querySelectorAll(c),r=0;r<t.length;r++)
+        try{
+          var o=t[r],l=n(o.getAttribute(a),0),i=document.createTextNode(l);
+          o.parentNode.replaceChild(i,o)
+        }catch(t){
+          e(t)
+        }
+    }()
+  });
+</script>
+
+
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">En route Marcel !</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      "J'ai merdé, j'ai fait un erreur. Est-ce que je dirais que c'était un échec ? Non, mais je dirais clairement que ça n'a pas fonctionné."
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>
