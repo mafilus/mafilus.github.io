@@ -25,6 +25,8 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 
 
 
+  <meta name="robots" content="noindex">
+
 
 
   
@@ -35,17 +37,19 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
 <meta property="og:title" content="Endpoint Detection and Response (EDR)" />
 <meta name="author" content="Mafilus Network" />
 <meta property="og:locale" content="fr" />
-<meta name="description" content="L’Endpoint Detection and Response (EDR) est une solution de sécurité informatique dont l’objectif est de détecter et de répondre aux menaces ciblant les postes de travail et serveurs. Ces menaces peuvent inclure des logiciels malveillants, des attaques sur des services exposés en réseau, des actions d’utilisateurs malveillants, etc. Cet article vise à proposer une première approche du fonctionnement des EDR." />
-<meta property="og:description" content="L’Endpoint Detection and Response (EDR) est une solution de sécurité informatique dont l’objectif est de détecter et de répondre aux menaces ciblant les postes de travail et serveurs. Ces menaces peuvent inclure des logiciels malveillants, des attaques sur des services exposés en réseau, des actions d’utilisateurs malveillants, etc. Cet article vise à proposer une première approche du fonctionnement des EDR." />
+<meta name="description" content="EDR, EPP, JPP" />
+<meta property="og:description" content="EDR, EPP, JPP" />
 <link rel="canonical" href="https://mafilus.github.io/diaries/2025-05-18-edr/" />
 <meta property="og:url" content="https://mafilus.github.io/diaries/2025-05-18-edr/" />
 <meta property="og:site_name" content="Mafilus Diaries" />
+<meta property="og:image" content="https://mafilus.github.io/assets/img/blog/schema-des-composants-analyse-comportementale.webp" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2025-05-18T00:00:00+02:00" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://mafilus.github.io/assets/img/blog/schema-des-composants-analyse-comportementale.webp" />
 <meta property="twitter:title" content="Endpoint Detection and Response (EDR)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2025-05-18T11:46:55+02:00","datePublished":"2025-05-18T00:00:00+02:00","description":"L’Endpoint Detection and Response (EDR) est une solution de sécurité informatique dont l’objectif est de détecter et de répondre aux menaces ciblant les postes de travail et serveurs. Ces menaces peuvent inclure des logiciels malveillants, des attaques sur des services exposés en réseau, des actions d’utilisateurs malveillants, etc. Cet article vise à proposer une première approche du fonctionnement des EDR.","headline":"Endpoint Detection and Response (EDR)","mainEntityOfPage":{"@type":"WebPage","@id":"https://mafilus.github.io/diaries/2025-05-18-edr/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/diaries/2025-05-18-edr/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2025-05-19T06:00:47+02:00","datePublished":"2025-05-18T00:00:00+02:00","description":"EDR, EPP, JPP","headline":"Endpoint Detection and Response (EDR)","image":"https://mafilus.github.io/assets/img/blog/schema-des-composants-analyse-comportementale.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://mafilus.github.io/diaries/2025-05-18-edr/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/diaries/2025-05-18-edr/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -118,7 +122,7 @@ Powered by Hydejack v9.2.1 <https://hydejack.com/>
   w._search = {
     DATA_URL: '/assets/sitedata.json?no-cache',
     STORAGE_KEY: 'mini-search/',
-    INDEX_KEY: 'index--2025-05-18T11:48:28+02:00',
+    INDEX_KEY: 'index--2025-05-19T06:02:20+02:00',
   };
   w._clapButton = true;
 }(window);</script>
@@ -244,18 +248,52 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
           
           
           
+            
+            
+            <span class="ellipsis" data-tippy-content="Pas touché avant: 19 May 2025">
+              <span class="sr-only">Pas touché avant:</span>
+              <span class="icon-history"></span>
+              <time datetime="2025-05-19T06:00:47+02:00">2025-05-19</time>
+            </span>
+          
         
       
     </div>
 
     
     
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+
+
+<img
+  
+    src="/assets/img/blog/schema-des-composants-analyse-comportementale.webp"
+  
+  alt="Endpoint Detection and Response (EDR)"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+        </div>
+      
+      
+    
 
     
 
 
 
-  <div class="hr pb0"></div>
+  
+    <p class="note-sm" >
+      EDR, EPP, JPP
+
+    </p>
+  
 
 
   </header>
@@ -263,14 +301,39 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.
   
     <p>L’<strong>Endpoint Detection and Response</strong> (<strong>EDR</strong>) est une <em>solution de sécurité informatique</em> dont l’objectif est de <strong>détecter</strong> et de <strong>répondre</strong> <em>aux menaces ciblant les postes de travail et serveurs</em>. Ces menaces peuvent inclure des <strong>logiciels malveillants</strong>, des <strong>attaques sur des services exposés en réseau</strong>, des <strong>actions d’utilisateurs malveillants</strong>, etc. Cet article vise à proposer <em>une première approche</em> du <em>fonctionnement des EDR</em>.</p>
 
-<h2 id="avant-propos">Avant-propos</h2>
-
-<p>Tous les <strong>EDR</strong> ne se valent pas, et leur fonctionnement différe selon l’éditeur. Il existe toutefois un <strong>état de l’art</strong> auquel toute solution EDR sérieuse devrait se conformer. Pourtant, certains logiciels comme <strong>Wazuh</strong> ou <strong>OpenEDR</strong>, bien que se revendiquant comme <strong>EDR</strong>, ne sont pas suffisamment matures dans leur distribution pour être considérés comme tels.
-Anecdote : les développeurs de <strong>Wazuh</strong> ont reclassé leur logiciel comme <strong>SIEM</strong> (outil de corrélation et d’agrégation d’événements de sécurité). Quant à <em>OpenEDR</em>, il est loin d’être réellement “open” : il nécessite un logiciel serveur (payant et fermé) pour activer toutes ses capacités de détection. La documentation évoque une intégration avec <em>Filebeat vers Elasticsearch</em>, mais celle-ci est incorrecte à cause du format JSON multi-ligne non pris en charge (une obscure configuration existe). Enfin, le projet n’a pas reçu de <em>mise à jour</em> significative <em>depuis</em> <strong>trois ans</strong>. Cela illustre la fragilité de certains projets <strong>EDR</strong> open source.</p>
-
 <h2 id="un-edr-est-un-antivirus">Un EDR est un antivirus</h2>
 
-<p>On peut aisément dire qu’un <strong>EDR</strong> est un <strong>antivirus</strong>, mais l’inverse n’est pas vrai. Cette affirmation peut paraître tranchée, mais la <em>majorité</em> des fonctionnalités de <strong>détection</strong> de <em>logiciels malveillants</em> sont <em>communes</em> aux deux. Certains éditeurs ne parlent plus d’« antivirus », mais de <strong>EPP</strong> (Endpoint Protection Platform pour une nouvelle génération d’antivirus). Au fil du temps, les antivirus ont évolué, passant du simple scan de signatures à des techniques d’analyse comportementale, heuristique et de réputation. Par exemple, ClamAV, un antivirus open source, repose exclusivement sur les signatures, tandis que des logiciels comme Avast, AVG, ESET, Bitdefender ou Kaspersky intègrent pare-feux, surveillance des fichiers utilisateurs, analyse comportementale et envoi d’échantillons pour analyse distante.</p>
+<p>On peut aisément dire qu’un <strong>EDR</strong> est un <strong>antivirus</strong>, cependant l’inverse n’est pas vrai. Cette affirmation peut paraître tranchée, mais les fonctionnalités de <strong>détection</strong> de <em>logiciels malveillants</em> sont <em>communes</em>. Certains éditeurs ne parlent plus d’« antivirus », mais de <strong>EPP</strong> (Endpoint Protection Platform pour une nouvelle génération d’antivirus). Au fil du temps, les antivirus ont évolué, passant du simple scan de signatures à des techniques d’analyse comportementale, heuristique et de réputation. Par exemple, ClamAV, un antivirus open source, repose exclusivement sur les signatures, tandis que des logiciels comme Avast, AVG, ESET, Bitdefender ou Kaspersky intègrent pare-feux, surveillance des fichiers utilisateurs, analyse comportementale et envoi d’échantillons pour analyse distante.</p>
+
+<p>La flexibilité de certains EDR permet de désactiver des composants. Le moteur antiviral (soit l’antivirus intégré) en fait partie. Dans ce cadre, il est possible d’installer un antivirus. Un EDR et une solution antivirale peuvent coexister.</p>
+
+<h2 id="analyse-statique-et-analyse-dynamique">Analyse statique et analyse dynamique</h2>
+
+<p>On distingue deux catégories d’analyse :</p>
+
+<p>L’analyse statique qui s’appuie sur une source sous forme de bloc de données. Grâce à divers algorithmes, cette analyse rapporte des anomalies statistiques, de réputation ou trouve directement des schémas connus de logiciel malveillant.</p>
+
+<p>L’analyse dynamique obtient de la télémétrie : un ensemble d’événement provenant du système d’exploitation ou des programmes. Un événement regroupe l’usage de fonctionnalité du système, des applications, du réseau et du matériel. Ils sont retranscrits sous forme de journaux. Par défaut, très peu d’événements sont collectés, c’est à la solution de sécurité de maintenir ses fonctionnalités de télémétrie. À partir de cette télémétrie, des jeux de règles s’appliquent pour identifier des actions suspectes et malveillantes.</p>
+
+<h2 id="la-réponse-à-la-détection">La réponse à la détection</h2>
+
+<p>Lorsqu’une analyse détecte une menace, les solutions de sécurité peuvent entreprendre <em>diverses actions</em> :</p>
+
+<ul>
+  <li>
+    <p><strong>Bloquer</strong> la menace, par un ensemble de réponse pré-configuré : isolation du poste, isolation du compte utilisateur, arrêt/suspension du processus, blocage d’exécution du programme, etc. Les options de configuration peuvent être activées ou désactivées dans les EDR.</p>
+  </li>
+  <li>
+    <p><strong>Alerter</strong> les équipes de sécurité et l’utilisateur.</p>
+  </li>
+  <li>
+    <p><strong>Déclencher des actions</strong> personnalisées par les équipes de sécurité. Ce sont souvent des programmes écrits par les équipes de sécurité. Cela peut aller à l’automatisation de collecte de preuve de l’incident de sécurité, de l’analyse du logiciel malveillant, etc.</p>
+  </li>
+</ul>
+
+<hr />
+
+<h1 id="analyse-statique">Analyse statique</h1>
 
 <h2 id="la-détection-par-signature">La détection par signature</h2>
 
@@ -315,7 +378,7 @@ Anecdote : les développeurs de <strong>Wazuh</strong> ont reclassé leur logici
 }
 </code></pre></div></div>
 
-<p>Créée par la société <strong>Elastic</strong>, cette <strong>règle</strong> détecte un <em>cheval de Troie</em> (ici <em>Cobalt Strike</em>, utilisé pour prendre le <em>contrôle à distance</em> d’un ordinateur). Elle s’active si au moins <em>deux chaînes</em> comme “bypassuac.dll”, “bypassuac.x64.dll” ou “.\pipe\bypassuac” sont présentes. L’attaque visée ici est un <em>bypass UAC</em>, c’est-à-dire le contournement du User Account Control, une fonctionnalité qui empêche les processus de bénéficier automatiquement de privilèges administrateurs. En contournant cette protection, un malware peut élever ses privilèges sans autorisation utilisateur.</p>
+<p>Créée par la société <strong>Elastic</strong>, cette <strong>règle</strong> détecte un <em>cheval de Troie</em> (ici <a href="https://www.cobaltstrike.com/">Cobalt Strike</a>, utilisé pour prendre le <em>contrôle à distance</em> d’un ordinateur). Elle s’active si au moins <em>deux chaînes</em> comme “bypassuac.dll”, “bypassuac.x64.dll” ou “.\pipe\bypassuac” sont présentes. L’attaque visée ici est un <em>bypass UAC</em>, c’est-à-dire le contournement du User Account Control, une fonctionnalité qui empêche les processus de bénéficier automatiquement de privilèges administrateurs. En contournant cette protection, un malware peut élever ses privilèges sans autorisation utilisateur.</p>
 
 <p>Dans la section “condition”, la syntaxe <code class="language-plaintext highlighter-rouge">2 of ($a*)</code> <em>signifie qu’au moins deux chaînes définies par les variables commençant par $a doivent être détectées</em>. <code class="language-plaintext highlighter-rouge">10 of ($b*)</code> en exige dix parmi celles de <code class="language-plaintext highlighter-rouge">$b</code>. Le <code class="language-plaintext highlighter-rouge">or</code> signifie qu’au moins un de ces deux groupes doit correspondre. Cette logique permet une détection souple et puissante, caractéristique des moteurs de signature modernes.</p>
 
@@ -323,24 +386,36 @@ Anecdote : les développeurs de <strong>Wazuh</strong> ont reclassé leur logici
 
 <h2 id="lanalyse-de-lentropie">L’analyse de l’entropie</h2>
 
-<p>L’<strong>entropie de Shannon</strong> : une <strong>mesure statistique</strong> qui attribue un score entre <strong>0</strong> et <strong>8</strong> à un bloc de données. Plus ce score est élevé, plus le contenu est <strong>aléatoire</strong>. Ce qui est souvent un indice de chiffrement ou de compression, le programme malveillant camoufle ses fonctionnalités maîtresses au sein du programme, un score élevé est potentiellement révélateur.</p>
+<p>L’<strong>entropie de Shannon</strong> : une <strong>mesure statistique</strong> qui attribue un score entre <strong>0</strong> et <strong>8</strong> à un bloc de données. Plus ce score est élevé, plus le contenu est <strong>aléatoire</strong>. Ce qui est souvent un indice de chiffrement ou de compression, le programme malveillant camoufle ses fonctionnalités maîtresses au sein du programme, un score élevé est potentiellement révélateur. <a href="https://fr.wikipedia.org/wiki/Entropie_de_Shannon">lien</a></p>
 
-<h2 id="lanalyse-sandboxing-ou-bac-à-sable">L’analyse sandboxing ou bac à sable</h2>
+<p><img src="/assets/img/blog/imhex-example-entropy.png" alt="800x400" title="éditeur hexadécimal qui indique par schéma le bruit d'un fichier dll" /></p>
 
-<p>Il faut différencier la <strong>sandbox</strong> de l’anti-virus local et celle qui est employée chez l’éditeur. Au niveau local, la sandbox est une <strong>analyse sur un laps de temps court</strong> de l’<strong>exécution du programme</strong>. La sandbox simule sans pour autant donner un accès directement au système. Pendant cette analyse, l’antivirus va renforcer son <strong>analyse comportementale</strong>.</p>
+<table>
+  <tbody>
+    <tr>
+      <td><em>bruits ou entropie d’un fichier dll</em></td>
+      <td>crédit : ImHex</td>
+    </tr>
+  </tbody>
+</table>
 
-<h2 id="les-programmes-de-confiance">Les programmes de confiance</h2>
+<h2 id="les-programmes-de-confiance-la-réputation">Les programmes de confiance (la réputation)</h2>
 
-<p>Un <strong>programme de confiance</strong> est un binaire dont l’origine est garantie cryptographiquement. On peut parler de réputation du logiciel. Cela repose sur une infrastructure à clés publiques (<strong>PKI</strong>). Un fichier <strong>signé</strong> contient une signature cryptographique qui prouve que son émetteur détient une clé privée correspondant à une <strong>autorité reconnue</strong>. Ce système est utilisé par les <strong>éditeurs</strong> pour <em>évaluer automatiquement la confiance d’un programme</em>, à travers le <strong>manifest</strong>.</p>
+<p>Un <strong>programme de confiance</strong> est un binaire dont l’origine est garantie cryptographiquement. On peut parler de réputation du logiciel. Cela repose sur une infrastructure à clés publiques (<strong>PKI</strong>). Un fichier <strong>signé</strong> contient une signature cryptographique qui prouve que son émetteur détient une clé privée correspondant à une <strong>autorité reconnue</strong>. Ce système est utilisé par les <strong>éditeurs</strong> pour <em>évaluer automatiquement la confiance d’un programme</em>.</p>
 
-<h2 id="lanalyse-déchantillon">L’analyse d’échantillon</h2>
+<p><img src="/assets/img/blog/signature-pe32.png" alt="800x400" title="dans les propriétés du fichier, signatures" /></p>
 
-<p>L’<strong>analyse d’échantillons</strong> se déroule généralement <em>chez</em> <strong>l’éditeur de la solution de sécurité</strong>. Elle est appelée <em>analyse heuristique</em>, <em>sandboxing</em>, <em>cloud</em>, <em>IA</em>, etc. En réalité, <em>chaque éditeur déploie ses propres techniques</em> : analyse automatisée, manuelle, ou hybride (avec escalade humaine si l’analyse automatique est incertaine).</p>
+<table>
+  <tbody>
+    <tr>
+      <td><em>signature de systeminformer</em></td>
+    </tr>
+  </tbody>
+</table>
 
-<p>Parmi les techniques utilisées, l’<em>analyse heuristique</em> et le <em>sandboxing</em> sont les plus établies, bien que pas toujours les plus efficaces. L’heuristique s’appuie sur l’<strong>analyse comportementale</strong>, parfois via des modèles de graphes. Lié avec le <em>sandboxing</em> consiste à exécuter l’échantillon dans un <em>environnement isolé</em> pour observer son comportement. Contrairement à la sandbox de l’antivirus, l’environnement simulé est beaucoup plus large et beaucoup long. Certains éditeurs intègrent de l’<em>intelligence artificielle</em> pour juger du caractère malveillant, ou encore utilisent des techniques de <em>rétro-ingénierie</em> combinées à des <em>IA génératives</em> pour analyser le code.
-Certaines de ces analyses sont difficiles à reproduire localement (ex : IA).</p>
+<hr />
 
-<p>Une fois l’analyse terminée, si l’échantillon est jugé malveillant, l’éditeur crée une signature. Si une signature ne peut être générée, une détection comportementale peut être mise en place à la place.</p>
+<h1 id="analyse-dynamique">Analyse Dynamique</h1>
 
 <h2 id="lanalyse-comportementale">L’analyse comportementale</h2>
 
@@ -348,15 +423,26 @@ Certaines de ces analyses sont difficiles à reproduire localement (ex : IA).</p
 
 <p>Sous Windows, comprendre les processus et la mémoire est essentiel. Un processus est une entité qui isole les tâches, la mémoire et les privilèges. Il ne peut lire la mémoire d’un autre processus sans passer par des mécanismes système. De même, il ne peut utiliser directement toutes les instructions du processeur.</p>
 
-<p>Les <strong>antivirus</strong> doivent pouvoir <strong>inspecter</strong> la <strong>mémoire</strong> des processus. Pour cela, ils utilisent à la fois des <strong>mécanismes offerts par l’OS</strong> et des techniques <strong>personnalisées</strong>, parfois <em>intrusives</em>. Certains vont jusqu’à modifier à la volée des fonctions critiques du système. Une pratique que <strong>Microsoft</strong> tente d’endiguer, mais qui subsiste, parfois au prix de graves dysfonctionnements (cf. l’incident <strong>CrowdStrike</strong> ayant causé un <em>plantage massif</em>).</p>
+<p>Les <strong>antivirus</strong> doivent pouvoir <strong>inspecter</strong> la <strong>mémoire</strong> des processus. Pour cela, ils utilisent à la fois des <strong>mécanismes offerts par l’OS</strong> et des techniques <strong>personnalisées</strong>, parfois <em>intrusives</em>. Certains vont jusqu’à modifier à la volée des fonctions critiques du système. Une pratique que <strong>Microsoft</strong> tente d’<a href="https://fr.wikipedia.org/wiki/Kernel_Patch_Protection">endiguer</a>, mais qui subsiste, parfois au prix de graves dysfonctionnements (cf. l’incident <strong>CrowdStrike</strong> ayant causé un <a href="https://next.ink/144464/crowdstrike-donne-des-details-techniques-sur-son-fiasco/"><em>plantage massif</em></a>).</p>
 
 <p>Deux composants principaux assurent cette analyse :</p>
 
 <p>Une <strong>bibliothèque</strong> (le fichier .DLL) injectée dans chaque processus, chargée d’intercepter certains appels système. Sur Windows, <code class="language-plaintext highlighter-rouge">ntdll.dll</code> gère les appels système (<strong>syscalls</strong>). L’antivirus <strong>détourne</strong> ces appels vers son propre code pour <strong>analyse</strong>.</p>
 
-<p>Un <strong>driver</strong> (pilote, le fichier .SYS) tournant dans le <strong>noyau</strong>, ayant un accès complet au système. Il <strong>surveille</strong> des événements comme la création de processus ou le chargement de bibliothèques via des <em>fonctions natives de Windows</em> (ex : PsSetCreateProcessNotifyRoutineEx, PsSetLoadImageNotifyRoutine).</p>
+<p>Un <strong>driver</strong> (pilote, le fichier .SYS) tournant dans le <strong>noyau</strong>, ayant un accès complet au système. Il <strong>surveille</strong> des événements comme la création de processus, accès fichier ou le chargement de bibliothèques via des <em>fonctions natives de Windows</em> (ex : PsSetCreateProcessNotifyRoutineEx, PsSetLoadImageNotifyRoutine).</p>
 
-<p>Certaines solutions vont encore plus loin, en installant un <strong>hyperviseur</strong> via le processeur pour contrôler les appels système noyau (ex : Avast avec KiSystemCall64 intercepté via une opération VM-exit).</p>
+<p><img src="/assets/img/blog/schema-des-composants-analyse-comportementale.webp" alt="800x400" title="Schema des composants de l'analyse comportementale" /></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><em>Schema des composants de l’analyse comportementale</em></td>
+      <td>Mafilus (BY-CC-NC)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Certaines solutions vont encore plus loin, en installant un <strong>hyperviseur</strong> via le processeur pour contrôler les appels Système vers le noyau (ex : Avast avec KiSystemCall64 intercepté via une opération VM-exit).</p>
 
 <h2 id="la-protection-anti-ransomware">La protection anti-ransomware</h2>
 
@@ -364,17 +450,67 @@ Certaines de ces analyses sont difficiles à reproduire localement (ex : IA).</p
 
 <p>Le système <strong>surveille les opérations sur des fichiers</strong> critiques (images, vidéos, documents, etc.), mais rarement sur des fichiers techniques (ex. .json). Le driver de <strong>l’antivirus</strong> utilise souvent des <strong>minifilters</strong> pour notifier les accès. Si un processus suspect tente de modifier ces fichiers, l’antivirus peut <strong>bloquer</strong> l’opération ou <strong>demander une validation</strong> utilisateur.</p>
 
+<p><img src="/assets/img/blog/agent-anti-ransomware.webp" alt="800x400" title="avast demande si le programme a.exe peut déplacer le dossier us_US" /></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><em>Avast agent anti-ransomware</em></td>
+      <td>Source Mafilus</td>
+    </tr>
+  </tbody>
+</table>
+
 <p>Le <strong>honeypot</strong>, ou “pot de miel”, place volontairement de faux fichiers appâts (on attrape un ours avec un pot de miel). Toute tentative de modification déclenche une <strong>alerte</strong> et une <strong>réponse</strong> : <em>isolation du processus</em>, <em>restauration des fichiers</em>, etc. Ces fichiers sont <strong>invisibles aux programmes de confiance</strong>. Les <em>composants comportementaux</em> sont ici essentiels pour différencier une menace d’un comportement légitime.</p>
+
+<p><img src="/assets/img/blog/honeypot-ransomware.webp" alt="800x400" title="liste des fichiers honeypots de cortex" /></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><em>Fichier Honeypot de l’EDR Cortex</em></td>
+      <td>source : metabaseq.com</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="le-pare-feu">Le pare-feu</h2>
 
 <p>Certains <strong>antivirus</strong> intègrent une <strong>analyse réseau</strong>, utilisant l’infrastructure de filtrage natif de Windows via Windows Filtering Platform (WFP). Ce module noyau permet, grâce à des fonctions comme FwpmFilterAdd, de <strong>bloquer</strong> ou d’<strong>autoriser</strong> des paquets réseau, <em>sortants</em> ou <em>entrants</em>, selon les règles de l’éditeur.</p>
+
+<h2 id="lanalyse-sandboxing-ou-bac-à-sable">L’analyse sandboxing ou bac à sable</h2>
+
+<p>Il faut différencier la <strong>sandbox</strong> de l’anti-virus local et celle qui est employée chez l’éditeur. Au niveau local, la sandbox est une <strong>analyse sur un laps de temps court</strong> de l’<strong>exécution du programme</strong>. La sandbox simule sans pour autant donner un accès directement au système. Pendant cette analyse, l’antivirus va renforcer son <strong>analyse comportementale</strong>.</p>
+
+<h2 id="lanalyse-déchantillon">L’analyse d’échantillon</h2>
+
+<p>L’<strong>analyse d’échantillons</strong> se déroule généralement <em>chez</em> <strong>l’éditeur de la solution de sécurité</strong>. Elle est appelée <em>analyse heuristique</em>, <em>sandboxing</em>, <em>cloud</em>, <em>IA</em>, etc. En réalité, <em>chaque éditeur déploie ses propres techniques</em> : analyse automatisée, manuelle, ou hybride (avec escalade humaine si l’analyse automatique est incertaine).</p>
+
+<p>Parmi les techniques utilisées, l’<em>analyse heuristique</em> et le <em>sandboxing</em> sont les plus établies, ils ne sont pas toujours les plus efficaces. L’heuristique s’appuie sur l’<strong>analyse comportementale</strong>, parfois via des modèles de graphes. Avec le <em>sandboxing</em>, elle consiste à exécuter l’échantillon dans un <em>environnement isolé</em> pour observer son comportement. Contrairement à la sandbox de l’antivirus, l’environnement simulé est beaucoup plus large et exécuter sur un laps de temps plus long. Certains éditeurs intègrent de l’<em>intelligence artificielle</em> pour juger du caractère malveillant, ou encore utilisent des techniques de <em>rétro-ingénierie</em> combinées à des <em>IA génératives</em> pour analyser le code.
+Certaines de ces analyses sont difficiles à reproduire localement (ex : IA).</p>
+
+<p><img src="/assets/img/blog/cloud-protection-windef.png" alt="800x400" title="cloud protection" /></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><em>source Microsoft</em></td>
+      <td>crédit Microsoft</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Une fois l’analyse terminée, si l’échantillon est jugé malveillant, l’éditeur crée une signature. Dans l’option où la détection par signature est inefficace, c’est un jeu de règles comportementales qui sera adopté.</p>
+
+<hr />
 
 <h2 id="composants-additionnels">Composants additionnels</h2>
 
 <p>De nombreux <strong>éditeurs commerciaux</strong> ajoutent des fonctionnalités complémentaires : <strong>coffres-forts</strong> à mots de passe, <strong>VPN</strong>, <strong>navigation sécurisée</strong>, etc. Bien qu’utiles pour la vie privée, ces fonctions dépassent le cadre de la réponse aux logiciels malveillants. Elles relèvent davantage de la prévention que de la détection ou de la correction.</p>
 
 <hr />
+
+<h1 id="edr">EDR</h1>
 
 <h2 id="en-quoi-un-edr-va-plus-loin">En quoi un EDR va plus loin</h2>
 
@@ -400,9 +536,28 @@ Certaines de ces analyses sont difficiles à reproduire localement (ex : IA).</p
 
 <p>Le cœur de la solution <strong>EDR</strong> est souvent son serveur centralisé. Il <strong>collecte et corrèle les événements</strong>, permettant aux équipes <strong>SOC</strong> (Security Operations Center) de mener des <strong>investigations</strong>. Ce serveur peut être intégré à un <strong>SIEM</strong> pour générer des alertes, enrichir la supervision, ou automatiser certaines réponses. Il permet également de déployer, ajuster ou désactiver les règles de <strong>détection à distance</strong>. Une autres des fonctionnalités permet le traçage des événements passées. Le serveur EDR conserve un historique permettant une <strong>analyse rétrospective</strong>. L’analyste est en mesure d’obtenir <em>l’activité du poste</em>. Le serveur peut être capable de corréler une attaque sur divers postes (endpoint) et donner des solutions de <strong>remédiation automatique</strong> : (isolement du réseau, suppression de fichier malveillant, restauration de fichier si sauvegardes)</p>
 
+<p><img src="/assets/img/blog/elastic-dashboard-alert.jpg" alt="800x400" title="dashboard elasticsearch" /></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><em>dashboard elasticsearch</em></td>
+      <td>crédit Elasticsearch</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
 <h1 id="conclusion">Conclusion</h1>
 
-<p>La <strong>télémétrie</strong> est essentielle à un <strong>EDR</strong>. Sans détection, il n’y a pas de réponse. Trop de détection et les équipes de <strong>SOC</strong> se noieront sur des investigations inutiles. La difficulté des solutions de sécurité basées sur la détection d’attaque est d’éviter qu’une alerte se déclenche là où il n’existe aucun incident. Les éditeurs de solution de sécurité ont pour objectif d’éviter le <strong>faux positif</strong>. On se retrouve avec un logiciel qui peut être décrié comme laxiste et autoritaire en même temps.</p>
+<p>Tous les <strong>EDR</strong> ne se valent pas, et leur fonctionnement différe selon l’éditeur. Avec cet article, vous avez de quoi définir des critères qui vous renseignent sur <strong>état de l’art</strong>. Vous pouvez retrouver des fonctionnalités décrites au niveau de la section EDR de l’article dans des solutions antivirales. Il n’y a pas de norme pour définir une différence entre une solution antivirale, un EPP ou un EDR. Par contre, vous pouvez être sûr que suivant l’accronyme les prix changent.</p>
+
+<p>Certains logiciels comme <strong>Wazuh</strong> ou <strong>OpenEDR</strong>, bien que se revendiquant comme <strong>EDR</strong>, ne sont pas suffisamment matures dans leur <em>distribution</em> pour être considérés comme tels.</p>
+
+<p>Anecdote : les développeurs de <strong>Wazuh</strong> ont reclassé leur logiciel comme <strong>SIEM</strong> (outil de corrélation et d’agrégation d’événements de sécurité). Quant à <em>OpenEDR</em>, il est loin d’être réellement “open” : il nécessite un logiciel serveur (payant et fermé) pour activer toutes ses capacités de détection. La documentation évoque une intégration avec <em>Filebeat vers Elasticsearch</em>, mais celle-ci est incorrecte à cause du format JSON multi-ligne non pris en charge (une obscure configuration existe). Enfin, le projet n’a pas reçu de <em>mise à jour</em> significative <em>depuis</em> <strong>trois ans</strong>. Cela illustre la fragilité de certains projets <strong>EDR</strong> open source.</p>
+
+<p>La <strong>télémétrie</strong> est essentielle à un <strong>EDR</strong>. Sans détection, il n’y a pas de réponse. Trop de détection et les équipes de <strong>SOC</strong> subiront des investigations inutiles. La difficulté des solutions de sécurité basées sur la détection d’attaque est d’éviter qu’une alerte se déclenche là où il n’existe aucun incident. Les éditeurs de solution de sécurité ont pour objectif d’éviter le <strong>faux positif</strong>. Une mauvaise configuration, et l’EDR se retrouve décrier comme laxiste et autoritaire en même temps.</p>
 
 <hr />
 
