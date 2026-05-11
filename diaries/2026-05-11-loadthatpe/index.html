@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="fr"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v9.2.1 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+  <meta name="robots" content="noindex">
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Les packers | Mafilus Diaries</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Les packers" />
+<meta name="author" content="Mafilus Network" />
+<meta property="og:locale" content="fr" />
+<meta name="description" content="Analyse d’un packer" />
+<meta property="og:description" content="Analyse d’un packer" />
+<link rel="canonical" href="https://mafilus.github.io/diaries/2026-05-11-loadthatpe/" />
+<meta property="og:url" content="https://mafilus.github.io/diaries/2026-05-11-loadthatpe/" />
+<meta property="og:site_name" content="Mafilus Diaries" />
+<meta property="og:image" content="https://mafilus.github.io/assets/img/blog/xor_yara.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-11T00:00:00+02:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://mafilus.github.io/assets/img/blog/xor_yara.png" />
+<meta property="twitter:title" content="Les packers" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mafilus Network"},"dateModified":"2026-05-11T07:16:21+02:00","datePublished":"2026-05-11T00:00:00+02:00","description":"Analyse d’un packer","headline":"Les packers","image":"https://mafilus.github.io/assets/img/blog/xor_yara.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://mafilus.github.io/diaries/2026-05-11-loadthatpe/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mafilus.github.io/assets/img/logo.png"},"name":"Mafilus Network"},"url":"https://mafilus.github.io/diaries/2026-05-11-loadthatpe/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="cybersec">
+  
+
+
+
+  <meta name="color-scheme" content="dark light">
+
+
+
+  <meta name="theme-color" content="rgb(25,55,71)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mafilus Diaries">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Mafilus Diaries">
+
+<meta name="generator" content="Hydejack v9.2.1" />
+
+
+<link rel="alternate" href="https://mafilus.github.io/diaries/2026-05-11-loadthatpe/" hreflang="fr">
+
+<link type="application/atom+xml" rel="alternate" href="https://mafilus.github.io/feed.xml" title="Mafilus Diaries" />
+
+
+<link rel="shortcut icon"    href="/assets/img/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/img/icons/logo.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+  
+  <link rel="dns-prefetch" href="/assets/bower_components/katex/dist/katex.min.css" id="_katexPreload">
+  <noscript><link rel="stylesheet" href="/assets/bower_components/katex/dist/katex.min.css"></noscript>
+
+
+
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2026-05-11T08:17:02+02:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.1.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79, 177, 186, 0.5);--accent-color-highlight: rgba(79, 177, 186, 0.1);--accent-color-darkened: rgb(63.8602040816, 154.5602040816, 162.8897959184);--theme-color: rgb(25,55,71);--dark-mode-body-bg: hsl(200.8695652174, 5.9895833333%, 17.5%);--dark-mode-border-color: hsl(200.8695652174, 5.9895833333%, 22.5%)}
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+
+</head>
+
+<body class="no-break-layout">
+  
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Go Go:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/diaries/">diaries</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2026-05-11-loadthatpe</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+<article id="post-diaries-loadthatpe" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Les packers
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2026-05-11T00:00:00+02:00">11 May 2026</time> in <span>Diaries</span> 
+      </span>
+      
+        
+          
+          
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+
+
+<img
+  
+    src="/assets/img/blog/xor_yara.png"
+  
+  alt="Les packers"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      Analyse d’un packer
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>Bonjour,</p>
+
+<p>Dans le cadre d’une veille technique orientée <strong>red team</strong>, je me suis intéressé à un outil de packing présenté dans une <a href="https://github.com/ProcessusT/LoadThat-PEandAssembly">vidéo</a>. Certaines simplifications peuvent prêter à confusion dans un contexte défensif réel.</p>
+
+<p>Cet article propose <em>une analyse d’un outil de packing</em> orienté <strong>red team</strong>, avec un objectif simple : <strong>évaluer sa capacité réelle à échapper à des mécanismes de détection modernes</strong>, notamment via <strong>YARA</strong>. Ce que le projet indique clairement…</p>
+
+<h1 id="loadthatpe-vs-yara">LoadThatPE vs YARA</h1>
+
+<h2 id="explication-de-la-menace">Explication de la menace</h2>
+
+<p>Ce programme est une sorte de <strong>loader/packer</strong>. Pour rappel, un <em>loader</em> est un programme qui peut (pas obligatoire) <em>préétablir un environnement adapté et enfin activer une charge</em> (comme un : <strong>shellcode</strong>, <strong>PE programme exécutable</strong>, <strong>DLL</strong>, plus rare, <strong>mais aussi un script</strong>, etc). <em>L’objectif</em> du <strong>loader</strong> est <strong>l’évasion de solution de sécurité</strong> pour les premières étapes de l’exécution d’un programme malveillant. Le <strong>packer</strong> est un programme qui en contient un autre. Bien entendu, il existe différents types de <strong>packer</strong> comme <strong>UPX</strong> dont <em>l’objectif est de réduire la taille du programme</em> en le <strong>compressant</strong> et en le <strong>décompressant lors de l’exécution</strong> du programme. Dans ce cas précis, le <strong>packer</strong> contient en lui-même un <strong>programme chiffré</strong> qui sera <em>déchiffré en mémoire pendant l’exécution</em> de celui-ci. L’objectif est de ne <strong>jamais mettre en clair</strong> le programme chiffré sur le disque dur.</p>
+
+<p>Une première question légitime est <em>pourquoi ne pas écrire le programme à exécuter et le supprimer ?</em> Les <strong>solutions de sécurité</strong> de type host prévention comme les <strong>antivirus</strong> ou <strong>EDR</strong> utilisent sur windows un <strong>système d’événement noyau</strong> qui intervient à chaque <strong>opération sur les fichiers</strong> (les <strong>minifilters</strong> sur windows). Cet événement devrait <em>déclencher systématiquement une analyse heuristique</em> ainsi que <em>le scan de signature</em> sur le programme. Il y a d’autres événements comme le chargement d’un programme, etc qui peuvent être des métriques que les <strong>EDR</strong>/<strong>antivirus</strong> utilisent (les <strong>Event Tracing</strong> avec <strong>PsNotifyEx</strong>).</p>
+
+<p>Il est donc utile pour un redteamer d’avoir ce type d’outil pour <em>charger ses outils</em> sans que <em>les antivirus les embêtent</em>. Comme il est tout à fait normal que le <strong>SOC</strong> crée une signature pour bloquer cet outil. Et c’est là qu’une sorte de jeu du chat et de la souris commence entre les deux.</p>
+
+<h2 id="analysons-en-détail-le-programme">Analysons en détail le programme.</h2>
+
+<p>Il y a deux dossiers pour deux programmes : les programmes compilés avec de l’IL (qui sera hors scope) et les programmes compilés pour des instructions directement pour le CPU.</p>
+
+<h3 id="focus-sur-loadthatpeencrypt_pepy">Focus sur LoadThatPE/encrypt_pe.py</h3>
+
+<p>Ce programme en <strong>python</strong> prend <em>3 arguments maximums</em> dont les deux derniers sont optionnels. Le premier étant le programme à packer, le second une éventuelle destination et le troisième la taille.</p>
+
+<p>Le programme va alors déterminer un <em>nombre de chunk du PE à chiffrer</em> entre 10 et 20. Puis pour chaque chunk, il va créer une <strong>clé aléatoire</strong> de <strong>8 bits soit 256 valeurs</strong>, mais qui commencent à <strong>0xAA</strong> :  la clé est donc entre <strong>0xAA - 0xFF</strong> de <strong>combinaison possible</strong>. C’est une information très intéressante pour créer une <strong>signature</strong>.</p>
+
+<p>Pour ce qui est du chiffrement en lui-même, l’algorithme split le programme sur le nombre de <strong>chunk chiffré</strong> et lui donne un nom.</p>
+
+<p>Puis va générer des <strong>noms aléatoires</strong> pour les <strong>fonctions</strong> et <strong>variables</strong>.</p>
+
+<p><img src="/assets/img/blog/code-obfusque.png" alt="800x400" title="code source en c : les noms des variables et fonctions sont des lettres aléatoires" /></p>
+
+<p>L’étape suivante est la création d’un fichier en <strong>C++</strong> <em>destiné à être compilé</em> pour créer le <strong>loader/packer</strong>.</p>
+
+<p>Tous les <strong>“chunks”</strong> sont <em>assignés à une variable globale</em>. La taille est aussi assignée à une variable globale.</p>
+
+<p>Nous avons ensuite une <em>fonction qui reconstruit le programme</em>. Il <em>copie un tableau de char[] global</em> dans un tableau de unsigned char* alloué par new. La seule chose à voir est que cette copie est entre fonction <strong>GetTickCount</strong> dont l’objectif est très certainement de <strong>détecter un breakpoint</strong>. Cette copie déplacée dans un autre segment de mémoire permet de reconstruire le programme d’origine.</p>
+
+<p>Nous avons une fonction classique de déchiffrement avec des opérations xor.</p>
+
+<p>Puis encore une fonction de <strong>mappage</strong> du <strong>programme packé</strong>. Une autre fonction effectue un <em>ré-assignement changement des droits de protection de la mémoire du programme</em>. Sachez que si une condition échoue, la fonction appelle exit.</p>
+
+<p>Le reste sont des fonctions de <strong>relocation</strong> du programme et de <strong>saut dans “l’entrypoint”</strong>.</p>
+
+<p>La dernière fonction est le main. Ensuite le programme écrit le fichier source.</p>
+
+<p>C’est au redteamer de <strong>compiler le programme</strong>. La <em>documentation propose cette compilation</em> :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x86_64-w64-mingw32-g++ <span class="nt">--static</span> <span class="se">\</span>
+    <span class="nt">-O3</span> <span class="nt">-flto</span> <span class="nt">-fwhole-program</span> <span class="nt">-ffast-math</span> <span class="se">\</span>
+    <span class="nt">-s</span> <span class="nt">-Wl</span>,--strip-all <span class="nt">-fno-exceptions</span> <span class="nt">-fno-rtti</span> <span class="se">\</span>
+    <span class="nt">-fno-ident</span> <span class="nt">-fexceptions</span> <span class="se">\</span>
+    <span class="nt">-Wl</span>,--build-id<span class="o">=</span>sha1 <span class="se">\</span>
+    <span class="nt">-Wl</span>,--image-base<span class="o">=</span>0x10000000 <span class="se">\</span>
+    <span class="nt">-fomit-frame-pointer</span> <span class="nt">-momit-leaf-frame-pointer</span> <span class="se">\</span>
+    <span class="nt">-finline-functions</span> <span class="nt">-finline-limit</span><span class="o">=</span>1000 <span class="se">\</span>
+    <span class="nt">-fno-plt</span> <span class="nt">-mno-red-zone</span> <span class="se">\</span>
+    <span class="nt">-static-libgcc</span> <span class="nt">-static-libstdc</span>++ <span class="se">\</span>
+    <span class="nt">-Wl</span>,--gc-sections <span class="nt">-ffunction-sections</span> <span class="nt">-fdata-sections</span> <span class="se">\</span>
+    encrypted_pe.cpp <span class="nt">-o</span> yara_rule_edition.exe
+</code></pre></div></div>
+<p>Un <strong>utilisateur avancé</strong> l’aura remarqué. L’option de compilation utilise <code class="language-plaintext highlighter-rouge">--strip-all</code>. Petit rappel, le <strong>code source généré</strong> pour chaque <strong>variable</strong> et <strong>nom de fonction</strong> est une <strong>chaîne aléatoire</strong>… qui ne sera <strong>pas incluse dans le fichier final</strong>.</p>
+
+<h3 id="petite-expérience-du-programme">Petite expérience du programme</h3>
+
+<p>D’abord utilisons un <strong>programme aléatoire</strong>. Peu importe notre <strong>détection</strong> se basera sur <em>les faiblesses du packer</em>. Nous allons générer un premier jet sans modification du script.</p>
+
+<p>Avec l’outil un <em>nom de fonction “ckxovHItaFfEJyAfzOXl” pourrait être généré</em>. Mais est-ce que <strong>ce nom apparaît</strong> dans le programme final ?</p>
+
+<ul>
+  <li><strong>Non</strong>.</li>
+</ul>
+
+<p>L’option <code class="language-plaintext highlighter-rouge">--strip-all</code> <strong>supprime les chaînes de caractère faisant référence aux noms des fonctions</strong>… Il y a quand même des exceptions qui sont lié à des particularités du C++.</p>
+
+<p>Et pour les <strong>variables</strong> ? Celle-ci étant <strong>référencée par des adresses mémoires</strong> mis dans des <strong>registres</strong>, <strong>le programme ne contient absolument aucune informations sur les variables</strong> (exception si on compile avec <em>des options de debug qui peuvent en y inclure</em>, ce qui n’est pas le cas ici).</p>
+
+<p>L’usage de chaîne de <strong>caractère aléatoire</strong> pour <strong>les noms de variables</strong> n’ont <strong>aucun impact</strong> dans un <strong>code en assembleur</strong>. À la limite, le nom des fonctions est une possibilité, mais l’option <code class="language-plaintext highlighter-rouge">strip</code> supprime ses noms. Les options du script python pour rendre le programme packer aléatoire ne le sont pas. C’est le nombre de chunk et de fonction de reconstitution qui l’est.</p>
+
+<h3 id="création-dune-signature-sur-un-éventuel-packer">Création d’une signature sur un éventuel packer.</h3>
+
+<p>Parlons du chiffrement par xor sur un byte. Sachez que <strong>YARA</strong> intègre un <strong>système qui brute force</strong> toutes les combinaisons sur <strong>un byte xoré</strong>… Ce qui signifie qu’un <strong>entête PE encodé</strong> avec un byte xor <em>est détectable</em> par la règle <strong>YARA</strong> la plus anecdotique : <strong>trouve un entête de fichier exécutable PE 2 fois !</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rule Xor_PE <span class="o">{</span>
+     strings:
+	<span class="nv">$cannotdos</span> <span class="o">=</span> <span class="s2">"This program cannot be run in dos mode."</span> xor
+     condition:
+	<span class="c">#cannotdos &gt;= 2</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>Cette règle repose sur une propriété simple : un exécutable PE contient <strong>des signatures reconnaissables</strong>, même après un chiffrement faible.</p>
+
+<p>Dans le cas d’un <strong>XOR</strong> sur un seul octet, <strong>YARA</strong> est capable de tester <strong>toutes les combinaisons possibles</strong>, rendant ce type <strong>d’obfuscation inefficace</strong>.</p>
+
+<p>Ainsi une rule qui analyse <strong>deux potentiels entêtes PE</strong> dans un programme <em>détecte les packers</em> comme <strong>LoadThatPE</strong>.</p>
+
+<p><img src="/assets/img/blog/xor_yara.png" alt="800x400" title="Yara détecte deux entêtes dans un programme produit par loadthatpe" /></p>
+
+<p>Cet outil illustre une réalité fréquente : une <strong>complexité apparente ne garantit pas une efficacité face à des mécanismes de détection modernes</strong>. Sans compréhension des modèles de détection (<strong>signature</strong>, <strong>heuristique</strong>, <strong>entropie</strong>), <strong>certaines techniques d’obfuscation</strong> restent purement <strong>cosmétiques</strong>.</p>
+
+<h2 id="note">Note</h2>
+
+<p><strong>LoadThatPE</strong> a reçu une mise à jour. Les <em>versions précédentes</em> reposaient notamment sur un chiffrement <strong>XOR simple</strong>. La <em>version actuelle</em> contient <strong>l’utilisation apparente d’un dictionnaire (inactif)</strong>. Cependant, après analyse, <strong>ces transformations ont un impact limité</strong> sur le binaire final.</p>
+
+<ul>
+  <li>Des artefacts statiques apparaissent dans le binaire compilé (IOC), bien qu’ils ne soient pas visibles directement dans le code source généré</li>
+  <li>L’absence de chiffrement des chunks rend leur contenu directement exploitable</li>
+  <li>Les données sont placées de manière contiguë après compilation, annulant l’effet attendu de fragmentation</li>
+  <li>Certaines techniques d’obfuscation implémentées au niveau du code source ne sont pas préservées lors de la compilation</li>
+  <li>Dans sa version actuelle, le projet présente également des problèmes de compilation, limitant son utilisation en l’état</li>
+</ul>
+
+<p>Cette évolution illustre une limite : sans prise en compte des optimisations du compilateur, des transformations appliquées au code source peuvent perdre toute efficacité dans le binaire final.</p>
+
+<p><img src="/assets/img/blog/loadthatnoob.png" alt="800x400" title="Code source à gauche chaînes de caractères obfusqués, ghidra à droite, analyse de string en clair à cause l'optmisation du compilateur" /></p>
+
+<p><em>La suite au prochain épisode…</em></p>
+
+  
+</article>
+
+
+
+  <hr class="dingbat related mb6" />
+
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="https://avatars.githubusercontent.com/u/80053810?v=4"
+    srcset="https://avatars.githubusercontent.com/u/80053810?v=4 1x,https://avatars.githubusercontent.com/u/80053810?v=4 2x"
+    
+  
+  alt="Mafilus Network"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Je suis chercheur en cybersécurité. Actuellement sans entreprise, j’expérimente les différents domaines de la cybersécurité. Mes journées se tournent à la recherche en cybersécurité avec du développement applicatif notamment des outils, des services dans une multitude de piles logicielles, à implémenter des laboratoires de recherche sur diverses technologies et analyser des menaces. J’ai une sensibilité pour la gouvernance : gestion du risque. Je suis spécialisé dans les techniques de contournement de sécurité. Je suis un fin connaisseur des technologies liées aux mesures de sécurité.<br /><br />Niveau pro : j’ai fait de l’audit de pentest en mode red team, mais en contrat pentest, de l’investigation numérique. J’ai été formateur. J’ai fait des études en sysadmin et en réseau, j’ai fait des études en dev système. Pour l’anecdote, je n’avais pas mis un pied dans une école d’informatique que je savais écrire des daemons UNIX en C. Les professeurs que j’ai eu n’ont jamais écrit de daemons UNIX. “<em>insérer rire gras</em>”. Dans les faits, j’ai une bonne base de connaissance sur divers sujets.<br /><br />Niveau perso : j’aime les chats.</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/Mafilus" title="X / Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X / Twitter</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/mafilus" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Mes trucs</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/diaries/2025-05-18-edr/" class="flip-title"><span>Endpoint Detection and Response (EDR)</span></a>  <time class="faded fine" datetime="2025-05-18T00:00:00+02:00">18 May 2025</time></li>                        <li class="h4">  <a href="/diaries/2025-01-15-sgf/" class="flip-title"><span>SGF</span></a>  <time class="faded fine" datetime="2025-01-15T00:00:00+01:00">15 Jan 2025</time></li>                        <li class="h4">  <a href="/diaries/2024-09-27-make-cups/" class="flip-title"><span>Make CUPS</span></a>  <time class="faded fine" datetime="2024-09-27T00:00:00+02:00">27 Sep 2024</time></li>            </ul></aside>
+
+  
+
+  
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© -39999 to 2024. All rights reserved.
+</small></p>
+  
+  
+    <nav class="legal"><small>
+    
+      
+      <a class="heading flip-title" href="/LICENCE/">LICENCE</a>
+      
+    
+    </small></nav>
+  
+    <p><small>Powered by <a class="external" href="https://hydejack.com/">Hydejack</a> v<span id="_version">9.2.1</span></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+
+
+
+
+<div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/bg.jpeg)"></div>
+
+    <div class="sidebar-sticky">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/logo.png" class="avatar" alt="Mafilus Diaries" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Mafilus Diaries</h2></a>
+    
+    
+      <p class="">
+        Vous pouvez faire glisser le menu de gauche à droite
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/charlie/"
+          class="sidebar-nav-item "
+          
+        >
+          Où est charlie ?
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/diaries/"
+          class="sidebar-nav-item "
+          
+        >
+          Mes vampires diaries
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          Moi, moi... Moi!
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/Mafilus" title="X / Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X / Twitter</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/mafilus" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.1.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.1.js" nomodule defer></script>
+  
+
+  
+
+<!--<![endif]-->
+  <!--
+Code for integrating CloudFlare's email protection with Hydejack's single page app loading.
+-->
+<script>
+  document.getElementById('_pushState').addEventListener('hy-push-state-after', function (e) {
+    function e(e){
+      (console.error?console.error:console.log).call(console,e)
+    }
+
+    function t(e){
+      return l.innerHTML='<a href="'+e.replace(/"/g,"&quot;")+'"></a>',l.childNodes[0].getAttribute("href")
+    }
+
+    function r(e,t){
+      var r=e.substr(t,2);return parseInt(r,16)
+    }
+
+    function n(e,n){
+      for(var o="",c=r(e,n),a=n+2;a<e.length;a+=2){
+        var l=r(e,a)^c;
+        o+=String.fromCharCode(l)
+      }
+      return t(o)
+    }
+
+    var o="/cdn-cgi/l/email-protection#",
+        c=".__cf_email__",
+        a="data-cfemail",
+        l=document.createElement("div");
+
+    !function(){
+      for(var t=document.getElementsByTagName("a"),r=0;r<t.length;r++)
+        try{
+          var c=t[r],a=c.href.indexOf(o);
+          a>-1&&(c.href="mailto:"+n(c.href,a+o.length))
+        }catch(t){
+          e(t)
+        }
+    }(),
+    function(){
+      for(var t=document.querySelectorAll(c),r=0;r<t.length;r++)
+        try{
+          var o=t[r],l=n(o.getAttribute(a),0),i=document.createTextNode(l);
+          o.parentNode.replaceChild(i,o)
+        }catch(t){
+          e(t)
+        }
+    }()
+  });
+</script>
+
+
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">En route Marcel !</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      "J'ai merdé, j'ai fait un erreur. Est-ce que je dirais que c'était un échec ? Non, mais je dirais clairement que ça n'a pas fonctionné."
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>
